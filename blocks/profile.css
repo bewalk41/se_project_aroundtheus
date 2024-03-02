@@ -1,0 +1,16 @@
+.profile {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.profile__info {
+  display: flex;
+}
+
+.profile__image {
+  width: 168.75px;
+  height: 127.5px;
+  border-radius: 50%;
+  overflow: hidden;
+}

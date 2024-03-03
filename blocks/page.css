@@ -10,6 +10,16 @@
 }
 
 .page__content {
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
   max-width: 880px;
+  min-height: 100vh;
+}
+
+.page__section {
+  max-width: 880px;
+  width: 100%;
+  position: relative;
+  margin: 0 auto;
 }

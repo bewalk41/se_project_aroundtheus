@@ -1,0 +1,10 @@
+.footer {
+  margin-top: 67px;
+  margin-bottom: 60px;
+  max-width: 880px;
+  margin-left: 200px;
+}
+
+.footer__copyright {
+  color: #545454;
+}

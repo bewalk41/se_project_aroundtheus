@@ -27,3 +27,5 @@ This project created by Bryan Walker based from Triple Ten is used to help begin
 The site also should be responsive and change based on viewers view dimensions, which helps this site be viewed on many different devices.
 
 Github Project: https://github.com/bewalk41/se_project_aroundtheus-1
+
+S

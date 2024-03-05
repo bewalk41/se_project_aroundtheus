@@ -16,4 +16,8 @@
   .cards {
     margin-top: 36px;
   }
+
+  .cards__list {
+    justify-content: center;
+  }
 }

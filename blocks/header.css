@@ -1,8 +1,8 @@
 .header {
   margin-top: 45px;
   max-width: 880px;
-  height: 75px;
-  border-bottom: 1px solid #545454;
+  min-height: 75px;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
 }
 
 .header__logo {
@@ -17,9 +17,8 @@
   }
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (max-width: 600px) {
   .header {
-    max-width: 282px;
     margin-top: 28px;
     padding-left: 27px;
   }

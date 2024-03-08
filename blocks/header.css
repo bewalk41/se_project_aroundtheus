@@ -1,5 +1,5 @@
 .header {
-  margin-top: 45px;
+  padding-top: 45px;
   max-width: 880px;
   min-height: 75px;
   border-bottom: 1px solid rgba(84, 84, 84, 0.7);
@@ -10,17 +10,16 @@
   height: 33px;
 }
 
-@media screen and (min-width: 600px) and (max-width: 775px) {
+@media screen and (min-width: 600px) and (max-width: 880px) {
   .header {
     max-width: 600px;
-    margin: 0;
-    padding-top: 28px;
+    padding-left: 27px;
   }
 }
 
 @media screen and (max-width: 600px) {
   .header {
-    max-width: 282px;
+    padding-top: 28px;
     padding-left: 27px;
   }
 

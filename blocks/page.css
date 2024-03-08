@@ -15,6 +15,7 @@
   margin: 0 auto;
   max-width: 880px;
   min-height: 100vh;
+  justify-content: center;
 }
 
 .page__section {
@@ -22,4 +23,10 @@
   width: 100%;
   position: relative;
   margin: 0 auto;
+}
+
+@media screen and (max-width: 880px) {
+  .page__content {
+    justify-content: center;
+  }
 }

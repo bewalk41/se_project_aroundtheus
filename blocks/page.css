@@ -28,5 +28,6 @@
 @media screen and (max-width: 880px) {
   .page__content {
     justify-content: center;
+    margin: 0 auto;
   }
 }

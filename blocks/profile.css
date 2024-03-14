@@ -89,6 +89,12 @@
     justify-content: center;
   }
 
+  .profile__edit-button {
+    margin-right: 20px;
+    width: 24px;
+    height: 24px;
+  }
+
   .profile__title {
     font-size: 32px;
   }

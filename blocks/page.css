@@ -28,6 +28,7 @@
 @media screen and (max-width: 880px) {
   .cards.page__section {
     justify-content: center;
+    max-width: 600px;
   }
 }
 

@@ -26,8 +26,13 @@
 }
 
 @media screen and (max-width: 880px) {
-  .page__content {
+  .cards.page__section {
     justify-content: center;
-    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .cards.page__section {
+    justify-content: flex-start;
   }
 }

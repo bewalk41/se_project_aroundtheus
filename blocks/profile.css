@@ -148,9 +148,11 @@
     margin: 0;
     margin-top: 14px;
     padding-bottom: 36px;
+    overflow: hidden;
+    white-space: ellipsis;
   }
   .profile__add-button {
-    width: calc(100% - 20px);
+    width: 282px;
     margin: 0 10px;
   }
 }

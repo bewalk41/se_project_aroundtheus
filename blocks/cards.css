@@ -22,9 +22,4 @@
   .cards {
     margin-top: 36px;
   }
-
-  .cards__list {
-    justify-content: flex-start;
-    padding: 0;
-  }
 }

@@ -1,0 +1,97 @@
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  padding: 0 19px;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: flex;
+}
+
+.modal_opened {
+  display: flex;
+}
+
+.modal__container {
+  background-color: white;
+  position: relative;
+  margin: auto;
+  padding: 36px;
+  border-radius: 10px;
+  width: 430px;
+  height: 330px;
+  padding: 0;
+}
+
+.modal__close {
+  background: transparent url(../images/Close\ Icon.svg) center no-repeat;
+  position: absolute;
+  cursor: pointer;
+  bottom: calc(100% + 5px);
+  left: calc(100% + 5px);
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-size: contain;
+}
+
+.modal__heading {
+  font-family: "Inter", "Arial", sans-serif;
+  color: #000;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29.05px;
+  margin: 0;
+  padding-left: 36px;
+  padding-top: 34px;
+  padding-bottom: 54px;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 358px;
+  height: 27.26px;
+  margin: 0;
+  padding-left: 36px;
+  padding-right: 36px;
+  border: none;
+}
+
+.modal__input {
+  margin-bottom: 29.74px;
+  border: 1px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.modal__inputs {
+  border: 1px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.modal__button {
+  background-color: #000;
+  color: white;
+  width: 358px;
+  padding: 13.66px 124px 18.49px 125px;
+  border: 1px white solid;
+  border-radius: 2px;
+  margin-top: 48px;
+  margin-bottom: 36px;
+  font-size: 18px;
+  text-align: center;
+  font-weight: 400;
+  font-family: "Inter", "Arial", sans-serif;
+}
+
+@media screen and (max-width: 630px) {
+  .modal__close {
+    right: 25px;
+    top: -26px;
+    width: 26px;
+    height: 26px;
+  }
+}

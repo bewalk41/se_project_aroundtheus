@@ -8,6 +8,7 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
   display: flex;
+  display: none;
 }
 
 .modal_opened {

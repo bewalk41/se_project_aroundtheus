@@ -21,7 +21,7 @@ const initialCards = [
   },
   {
     name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago-di-braies.jpg",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
 
@@ -37,10 +37,24 @@ const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 const profileEditForm = profileEditModal.querySelector(".modal__form");
+const cardListEl = document.querySelector(".cards__list");
+const cardTemplate =
+  document.querySelector("#card-template").content.firstElementChild;
 
 function closePopop() {
   profileEditModal.classList.remove("modal_opened");
 }
+
+function getcardElement(cardData) {
+  const cardElement = cardTemplate.cloneNode(true);
+  const cardImageEl = cardElement.querySelector(".card__image");
+  const cardHeaderEl = cardElement.querySelector(".card__header");
+  cardHeaderEl.textContent = cardData.name;
+  cardImageEl.src = cardData.link;
+
+  return cardElement;
+}
+
 function handleProfileEditSubmit(e) {
   e.preventDefault();
   profileName.textContent = profileNameInput.value;
@@ -57,3 +71,8 @@ profileEditButton.addEventListener("click", () => {
 profilecloseButton.addEventListener("click", closePopop);
 
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
+
+initialCards.forEach((cardData) => {
+  const cardElement = getcardElement(cardData);
+  cardListEl.append(cardElement);
+});

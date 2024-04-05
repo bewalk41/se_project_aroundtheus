@@ -94,6 +94,22 @@
   opacity: 0.6;
 }
 
+.modal__image {
+  width: 433px;
+  height: 540px;
+}
+
+.modal__image-container {
+  background-color: transparent;
+  position: relative;
+  margin: auto;
+  padding: 36px;
+  border-radius: 10px;
+  width: 430px;
+  height: auto;
+  padding: 0;
+}
+
 @media screen and (max-width: 630px) {
   .modal__heading {
     font-size: 18px;
@@ -129,5 +145,12 @@
 
   .modal__input {
     width: 238px;
+  }
+  .modal__image-container {
+    width: 240px;
+  }
+  .modal__image {
+    width: 240px;
+    height: 299px;
   }
 }

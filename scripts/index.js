@@ -47,12 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector("#card-template").content.firstElementChild;
   const addCardCloseButton = document.querySelector("#add-card-close-button");
 
-  //Form Data
-  // const nameInput = profileFormElement.querySelector(".modal__input_type_name");
-  // const jobInput = profileFormElement.querySelector(
-  //   "modal__input_type_description"
-  // );
-
   // Functions
   function closeModal() {
     profileEditModal.classList.remove("modal_opened");
@@ -80,9 +74,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const cardImageEl = cardElement.querySelector(".card__image");
     const cardHeaderEl = cardElement.querySelector(".card__header");
     const likeButton = cardElement.querySelector(".card__like-button");
+    const trashButton = cardElement.querySelector(".card__trash-button");
+
+    //function image modal
+    const cardImages = document.querySelectorAll(".card__image");
+    const imageModal = document.querySelector("#image-modal");
+    const modalImage = document.querySelector("#modal-image");
+    function openImageModal(imageSrc) {
+      modalImage.src = imageSrc;
+      imageModal.classList.add("modal_opened");
+    }
+    cardImages.forEach((image) => {
+      image.addEventListener("click", () => {
+        openImageModal(image.src);
+      });
+    });
 
     likeButton.addEventListener("click", () => {
       likeButton.classList.toggle("card__like-button_active");
+    });
+
+    trashButton.addEventListener("click", () => {
+      cardElement.remove();
     });
 
     cardImageEl.src = data.link;

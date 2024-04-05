@@ -106,13 +106,30 @@
       </div>
     </div>
 
+    <!-- Add Image Modal -->
+
+    <div class="modal" id="image-modal">
+      <div class="modal__image-container">
+        <button
+          class="modal__close"
+          id="image-modal-close-button"
+          type="button"
+        ></button>
+        <img class="modal__image" id="modal-image" src="" alt="" />
+      </div>
+    </div>
+
     <template id="card-template">
       <li class="card">
         <img class="card__image" src="" alt="" />
         <div class="card__description">
           <h2 class="card__header"></h2>
           <button class="card__like-button" type="button"></button>
-          <button class="card__trash-button" type="button"></button>
+          <button
+            class="card__trash-button"
+            id="trash-card-button"
+            type="button"
+          ></button>
         </div>
       </li>
     </template>

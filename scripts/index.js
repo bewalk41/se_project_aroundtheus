@@ -80,15 +80,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const cardImages = document.querySelectorAll(".card__image");
     const imageModal = document.querySelector("#image-modal");
     const modalImage = document.querySelector("#modal-image");
+    const imageModalCloseButton = document.querySelector(
+      "#image-modal-close-button"
+    );
     function openImageModal(imageSrc) {
       modalImage.src = imageSrc;
       imageModal.classList.add("modal_opened");
     }
+
+    function closeImageModal() {
+      imageModal.classList.remove("modal_opened");
+    }
+
     cardImages.forEach((image) => {
       image.addEventListener("click", () => {
         openImageModal(image.src);
       });
     });
+
+    imageModalCloseButton.addEventListener("click", closeImageModal);
 
     likeButton.addEventListener("click", () => {
       likeButton.classList.toggle("card__like-button_active");

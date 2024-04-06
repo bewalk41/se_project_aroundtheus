@@ -9,10 +9,15 @@
   z-index: 999;
   display: flex;
   display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s ease;
 }
 
 .modal_opened {
   display: flex;
+  visibility: visible;
+  opacity: 1;
 }
 
 .modal__container {
@@ -108,6 +113,14 @@
   width: 430px;
   height: auto;
   padding: 0;
+}
+
+.modal__caption {
+  font-family: "Inter", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  margin: 0;
+  padding-top: 10px;
 }
 
 @media screen and (max-width: 630px) {

@@ -1,3 +1,4 @@
+// Initial card data
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -67,6 +68,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const cardElement = getcardElement(cardData);
     cardListEl.prepend(cardElement);
     closeAddCardModal();
+
+    // Clear input fields
+    document.querySelector("#card-title-input").value = "";
+    document.querySelector("#card-image-input").value = "";
   }
 
   function openPopup(popupElement) {
@@ -74,20 +79,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function closePopup(popupElement) {
-    popupElement.classList.remove("modal_opened");
+    setTimeout(() => {
+      popupElement.classList.remove("modal_opened");
+    }, 50);
   }
-
-  profilecloseButton.addEventListener("click", () => {
-    closePopup(profileEditModal);
-  });
-
-  const imageModalCloseButton = document.querySelector(
-    "#image-modal-close-button"
-  );
-  imageModalCloseButton.addEventListener("click", () => {
-    const imageModal = document.querySelector("#image-modal");
-    imageModal.classList.remove("modal_opened");
-  });
 
   function getcardElement(data) {
     const cardElement = cardTemplate.cloneNode(true);
@@ -100,14 +95,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const imageModal = document.querySelector("#image-modal");
     const modalImage = document.querySelector("#modal-image");
 
-    function openImageModal(imageSrc) {
+    function openImageModal(imageSrc, altText) {
       modalImage.src = imageSrc;
+      modalImage.alt = altText;
+      modalCaption.textContent = altText;
       openPopup(imageModal);
     }
 
+    const modalCaption = document.querySelector("#modal-caption");
+
     // Add event listener to card image
     cardImageEl.addEventListener("click", () => {
-      openImageModal(data.link);
+      openImageModal(data.link, data.name);
     });
 
     likeButton.addEventListener("click", () => {
@@ -145,13 +144,21 @@ document.addEventListener("DOMContentLoaded", () => {
     profileEditModal.classList.add("modal_opened");
   });
 
-  profilecloseButton.addEventListener("click", closeModal);
-  profileEditForm.addEventListener("submit", handleProfileEditSubmit);
+  profilecloseButton.addEventListener("click", () => {
+    closePopup(profileEditModal);
+  });
 
+  const imageModalCloseButton = document.querySelector(
+    "#image-modal-close-button"
+  );
+
+  imageModalCloseButton.addEventListener("click", () => {
+    const imageModal = document.querySelector("#image-modal");
+    closePopup(imageModal);
+  });
+
+  profileEditForm.addEventListener("submit", handleProfileEditSubmit);
   addCardForm.addEventListener("submit", handleAddCardSubmit);
   addCardButton.addEventListener("click", openAddCardModal);
   addCardCloseButton.addEventListener("click", closeAddCardModal);
 });
-
-const modalCaption = document.querySelector("#modal-caption");
-modalCaption.textContent = "Your caption text here";

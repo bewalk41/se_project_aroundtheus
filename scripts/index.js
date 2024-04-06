@@ -79,9 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function closePopup(popupElement) {
-    setTimeout(() => {
-      popupElement.classList.remove("modal_opened");
-    }, 50);
+    popupElement.classList.remove("modal_opened");
   }
 
   function getcardElement(data) {

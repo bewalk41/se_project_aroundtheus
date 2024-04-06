@@ -48,8 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const addCardCloseButton = document.querySelector("#add-card-close-button");
 
   // Functions
-  function closeModal() {
-    profileEditModal.classList.remove("modal_opened");
+  function closeModal(popupElement) {
+    closePopup(popupElement);
   }
 
   function handleProfileEditSubmit(e) {
@@ -69,6 +69,26 @@ document.addEventListener("DOMContentLoaded", () => {
     closeAddCardModal();
   }
 
+  function openPopup(popupElement) {
+    popupElement.classList.add("modal_opened");
+  }
+
+  function closePopup(popupElement) {
+    popupElement.classList.remove("modal_opened");
+  }
+
+  profilecloseButton.addEventListener("click", () => {
+    closePopup(profileEditModal);
+  });
+
+  const imageModalCloseButton = document.querySelector(
+    "#image-modal-close-button"
+  );
+  imageModalCloseButton.addEventListener("click", () => {
+    const imageModal = document.querySelector("#image-modal");
+    imageModal.classList.remove("modal_opened");
+  });
+
   function getcardElement(data) {
     const cardElement = cardTemplate.cloneNode(true);
     const cardImageEl = cardElement.querySelector(".card__image");
@@ -76,29 +96,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const likeButton = cardElement.querySelector(".card__like-button");
     const trashButton = cardElement.querySelector(".card__trash-button");
 
-    //function image modal
-    const cardImages = document.querySelectorAll(".card__image");
+    // Function to open image modal
     const imageModal = document.querySelector("#image-modal");
     const modalImage = document.querySelector("#modal-image");
-    const imageModalCloseButton = document.querySelector(
-      "#image-modal-close-button"
-    );
+
     function openImageModal(imageSrc) {
       modalImage.src = imageSrc;
-      imageModal.classList.add("modal_opened");
+      openPopup(imageModal);
     }
 
-    function closeImageModal() {
-      imageModal.classList.remove("modal_opened");
-    }
-
-    cardImages.forEach((image) => {
-      image.addEventListener("click", () => {
-        openImageModal(image.src);
-      });
+    // Add event listener to card image
+    cardImageEl.addEventListener("click", () => {
+      openImageModal(data.link);
     });
-
-    imageModalCloseButton.addEventListener("click", closeImageModal);
 
     likeButton.addEventListener("click", () => {
       likeButton.classList.toggle("card__like-button_active");
@@ -121,11 +131,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function openAddCardModal() {
-    addCardModal.classList.add("modal_opened");
+    openPopup(addCardModal);
   }
 
   function closeAddCardModal() {
-    addCardModal.classList.remove("modal_opened");
+    closePopup(addCardModal);
   }
 
   // Event listeners
@@ -142,3 +152,6 @@ document.addEventListener("DOMContentLoaded", () => {
   addCardButton.addEventListener("click", openAddCardModal);
   addCardCloseButton.addEventListener("click", closeAddCardModal);
 });
+
+const modalCaption = document.querySelector("#modal-caption");
+modalCaption.textContent = "Your caption text here";

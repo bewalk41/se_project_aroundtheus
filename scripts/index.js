@@ -74,8 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     closeAddCardModal();
 
     // Clear input fields
-    titleInput.value = "";
-    linkInput.value = "";
+    addCardForm.reset();
   }
 
   function openPopup(popupElement) {

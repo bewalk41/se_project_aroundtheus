@@ -47,9 +47,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const cardTemplate =
     document.querySelector("#card-template").content.firstElementChild;
   const addCardCloseButton = document.querySelector("#add-card-close-button");
+  const imageModal = document.querySelector("#image-modal");
 
   // Functions
-  function closeModal(popupElement) {
+  function closePopup(popupElement) {
     closePopup(popupElement);
   }
 
@@ -57,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     profileName.textContent = profileNameInput.value;
     profileDescription.textContent = profileDescriptionInput.value;
-    closeModal(profileEditModal);
+    closePopup(profileEditModal);
   }
 
   function handleAddCardSubmit(e) {
@@ -90,7 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const trashButton = cardElement.querySelector(".card__trash-button");
 
     // Function to open image modal
-    const imageModal = document.querySelector("#image-modal");
     const modalImage = document.querySelector("#modal-image");
 
     function openImageModal(imageSrc, altText) {
@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
   profileEditButton.addEventListener("click", () => {
     profileNameInput.value = profileName.textContent;
     profileDescriptionInput.value = profileDescription.textContent;
-    profileEditModal.classList.add("modal_opened");
+    openPopup(profileEditModal);
   });
 
   profilecloseButton.addEventListener("click", () => {
@@ -151,7 +151,6 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
   imageModalCloseButton.addEventListener("click", () => {
-    const imageModal = document.querySelector("#image-modal");
     closePopup(imageModal);
   });
 

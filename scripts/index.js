@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector("#card-template").content.firstElementChild;
   const addCardCloseButton = document.querySelector("#add-card-close-button");
   const imageModal = document.querySelector("#image-modal");
+  const modalCaption = document.querySelector("#modal-caption");
 
   // Functions
   function closePopup(popupElement) {
@@ -97,8 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
       modalCaption.textContent = altText;
       openPopup(imageModal);
     }
-
-    const modalCaption = document.querySelector("#modal-caption");
 
     // Add event listener to card image
     cardImageEl.addEventListener("click", () => {

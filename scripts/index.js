@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Functions
   function closePopup(popupElement) {
-    closePopup(popupElement);
+    popupElement.classList.remove("modal_opened");
   }
 
   function handleProfileEditSubmit(e) {
@@ -61,26 +61,25 @@ document.addEventListener("DOMContentLoaded", () => {
     closePopup(profileEditModal);
   }
 
+  const cardTitleInput = document.querySelector("#card-title-input");
+  const cardImageInput = document.querySelector("#card-image-input");
+
   function handleAddCardSubmit(e) {
     e.preventDefault();
-    const cardName = document.querySelector("#card-title-input").value;
-    const cardImageLink = document.querySelector("#card-image-input").value;
+    const cardName = cardTitleInput.value;
+    const cardImageLink = cardImageInput.value;
     const cardData = { name: cardName, link: cardImageLink };
     const cardElement = getcardElement(cardData);
     cardListEl.prepend(cardElement);
     closeAddCardModal();
 
     // Clear input fields
-    document.querySelector("#card-title-input").value = "";
-    document.querySelector("#card-image-input").value = "";
+    titleInput.value = "";
+    linkInput.value = "";
   }
 
   function openPopup(popupElement) {
     popupElement.classList.add("modal_opened");
-  }
-
-  function closePopup(popupElement) {
-    popupElement.classList.remove("modal_opened");
   }
 
   function getcardElement(data) {

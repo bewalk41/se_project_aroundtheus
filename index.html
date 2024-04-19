@@ -60,19 +60,32 @@
         <h3 class="modal__heading">Edit Profile</h3>
         <form class="modal__form">
           <input
-            class="modal__input"
+            class="modal__input modal__input_type_error modal__input_type_name"
             type="text"
             id="profile-title-input"
             name="heading"
             placeholder="Name"
+            type="text"
+            minlength="2"
+            maxlength="40"
+            required
           />
+          <span class="modal__error" id="profile-title-input-error"></span>
           <input
             class="modal__input"
             type="text"
             id="profile-description-input"
             name="description"
             placeholder="Description"
+            type="text"
+            minlength="2"
+            maxlength="200"
+            required
           />
+          <span
+            class="modal__error"
+            id="profile-description-input-error"
+          ></span>
           <button class="modal__button">Save</button>
         </form>
       </div>
@@ -93,15 +106,27 @@
             id="card-title-input"
             name="heading"
             placeholder="Title"
+            type="text"
+            minlength="1"
+            maxlength="30"
+            required
           />
+          <span class="modal__error" id="card-title-input-error"></span>
           <input
             class="modal__input modal__input_type_url"
             type="url"
             id="card-image-input"
             name="description"
             placeholder="Image URL"
+            required
           />
-          <button class="modal__button">Save</button>
+          <button
+            class="modal__button modal__button_disabled"
+            type="submit"
+            disabled
+          >
+            Save
+          </button>
         </form>
       </div>
     </div>
@@ -136,5 +161,6 @@
     </template>
 
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validation.js"></script>
   </body>
 </html>

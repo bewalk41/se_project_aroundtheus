@@ -10,9 +10,11 @@ function showInputError(formEL, inputEl, { inputErrorClass, errorClass }) {
 
 function hideInputError(formEL, inputEl, { inputErrorClass, errorClass }) {
   const errorMessageEl = formEL.querySelector(`#${inputEl.id}-error`);
-  inputEl.classList.remove(inputErrorClass);
-  errorMessageEl.textContent = "";
-  errorMessageEl.classList.remove(errorClass);
+  if (errorMessageEl) {
+    inputEl.classList.remove(inputErrorClass);
+    errorMessageEl.textContent = "";
+    errorMessageEl.classList.remove(errorClass);
+  }
 }
 
 function checkInputValidity(formEL, inputEl, options) {

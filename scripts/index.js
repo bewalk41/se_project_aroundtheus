@@ -155,4 +155,21 @@ document.addEventListener("DOMContentLoaded", () => {
   addCardForm.addEventListener("submit", handleAddCardSubmit);
   addCardButton.addEventListener("click", openAddCardModal);
   addCardCloseButton.addEventListener("click", closeAddCardModal);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      // Close profile edit modal if it's open
+      if (profileEditModal.classList.contains("modal_opened")) {
+        closePopup(profileEditModal);
+      }
+      // Close add card modal if it's open
+      if (addCardModal.classList.contains("modal_opened")) {
+        closePopup(addCardModal);
+      }
+      // Close image modal if it's open
+      if (imageModal.classList.contains("modal_opened")) {
+        closePopup(imageModal);
+      }
+    }
+  });
 });

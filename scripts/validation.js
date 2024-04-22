@@ -1,16 +1,20 @@
 // enabling validation by calling enableValidation()
 // pass all the settings on call
 
-function showInputError(formEL, inputEl, { inputErrorClass, errorClass }) {
+function hideInputError(formEL, inputEl, { inputErrorClass, errorClass }) {
   const errorMessageEl = formEL.querySelector(`#${inputEl.id}-error`);
-  inputEl.classList.add(inputErrorClass);
-  errorMessageEl.textContent = inputEl.validationMessage;
-  errorMessageEl.classList.add(errorClass);
+  if (errorMessageEl) {
+    // Check if error message element exists
+    inputEl.classList.remove(inputErrorClass);
+    errorMessageEl.textContent = "";
+    errorMessageEl.classList.remove(errorClass);
+  }
 }
 
 function hideInputError(formEL, inputEl, { inputErrorClass, errorClass }) {
   const errorMessageEl = formEL.querySelector(`#${inputEl.id}-error`);
   if (errorMessageEl) {
+    // Check if error message element exists
     inputEl.classList.remove(inputErrorClass);
     errorMessageEl.textContent = "";
     errorMessageEl.classList.remove(errorClass);
@@ -74,16 +78,16 @@ function enableValidation(options) {
     });
 
     setEventListeners(formEL, options);
-    // look for all inputs inside of the form
-    // loop through all inputs to see if all are valid
-    //if input not valid
-    // get validation message
-    //add error class to input
-    // display error mesage
-    // disable button
-    //if all inputs are valid
-    // enable button
-    // reset error meesages
+    //     // look for all inputs inside of the form
+    //     // loop through all inputs to see if all are valid
+    //     //if input not valid
+    //     // get validation message
+    //     //add error class to input
+    //     // display error mesage
+    //     // disable button
+    //     //if all inputs are valid
+    //     // enable button
+    //     // reset error meesages
   });
 }
 

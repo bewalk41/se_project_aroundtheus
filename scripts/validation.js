@@ -1,20 +1,19 @@
 // enabling validation by calling enableValidation()
 // pass all the settings on call
 
-function hideInputError(formEL, inputEl, { inputErrorClass, errorClass }) {
+function showInputError(formEL, inputEl, { inputErrorClass, errorClass }) {
   const errorMessageEl = formEL.querySelector(`#${inputEl.id}-error`);
   if (errorMessageEl) {
     // Check if error message element exists
-    inputEl.classList.remove(inputErrorClass);
-    errorMessageEl.textContent = "";
-    errorMessageEl.classList.remove(errorClass);
+    inputEl.classList.add(inputErrorClass);
+    errorMessageEl.textContent = inputEl.validationMessage;
+    errorMessageEl.classList.add(errorClass);
   }
 }
 
 function hideInputError(formEL, inputEl, { inputErrorClass, errorClass }) {
   const errorMessageEl = formEL.querySelector(`#${inputEl.id}-error`);
   if (errorMessageEl) {
-    // Check if error message element exists
     inputEl.classList.remove(inputErrorClass);
     errorMessageEl.textContent = "";
     errorMessageEl.classList.remove(errorClass);

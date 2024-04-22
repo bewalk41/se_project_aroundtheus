@@ -132,6 +132,19 @@ document.addEventListener("DOMContentLoaded", () => {
     closePopup(addCardModal);
   }
 
+  function closePopupOnOverlayClick(popupElement) {
+    popupElement.addEventListener("click", (event) => {
+      if (event.target === popupElement) {
+        closePopup(popupElement);
+      }
+    });
+  }
+  closePopupOnOverlayClick(profileEditModal);
+
+  closePopupOnOverlayClick(addCardModal);
+
+  closePopupOnOverlayClick(imageModal);
+
   // Event listeners
   profileEditButton.addEventListener("click", () => {
     profileNameInput.value = profileName.textContent;
@@ -158,15 +171,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
-      // Close profile edit modal if it's open
+      // Close profile edit modal
       if (profileEditModal.classList.contains("modal_opened")) {
         closePopup(profileEditModal);
       }
-      // Close add card modal if it's open
+      // Close add card modal
       if (addCardModal.classList.contains("modal_opened")) {
         closePopup(addCardModal);
       }
-      // Close image modal if it's open
+      // Close image modal
       if (imageModal.classList.contains("modal_opened")) {
         closePopup(imageModal);
       }

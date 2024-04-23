@@ -65,7 +65,7 @@
 }
 
 .modal__input {
-  margin-bottom: 29.74px;
+  margin-bottom: 20px;
   border: 1px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   font-size: 14px;
@@ -126,8 +126,7 @@
   font-size: 12px;
   line-height: 15px;
   color: #ff0000;
-  top: calc(100% + 10px);
-  left: 0;
+  left: 72px;
   width: 100%;
   text-align: left;
   transition: opacity 0.3s;

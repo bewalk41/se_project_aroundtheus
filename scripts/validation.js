@@ -4,9 +4,11 @@
 function showInputError(formEL, inputEl, { inputErrorClass, errorClass }) {
   const errorMessageEl = formEL.querySelector(`#${inputEl.id}-error`);
   if (errorMessageEl) {
-    // Check if error message element exists
-    inputEl.classList.add(inputErrorClass);
-    errorMessageEl.textContent = inputEl.validationMessage;
+    if (inputEl.type === "url") {
+      errorMessageEl.textContent = "Please enter a web address."; // Error message for URL input
+    } else {
+      errorMessageEl.textContent = inputEl.validationMessage;
+    }
     errorMessageEl.classList.add(errorClass);
   }
 }
@@ -48,18 +50,17 @@ function enableButton(submitButton, inactiveButtonClass) {
 
 function toggleButtonState(inputEls, submitButton, { inactiveButtonClass }) {
   if (hasInvalidInput(inputEls)) {
-    submitButton.classList.add(inactiveButtonClass);
-    submitButton.disabled = true;
+    disableButton(submitButton, inactiveButtonClass);
     return;
   }
-  submitButton.classList.remove(inactiveButtonClass);
+  enableButton(submitButton, inactiveButtonClass);
   submitButton.disabled = false;
 }
 
 function setEventListeners(formEL, options) {
-  const { inputSelector } = options;
+  const { inputSelector, submitButtonSelector } = options;
   const inputEls = [...formEL.querySelectorAll(inputSelector)];
-  const submitButton = formEL.querySelector(".modal__button");
+  const submitButton = formEL.querySelector(submitButtonSelector);
 
   inputEls.forEach((inputEl) => {
     inputEl.addEventListener("input", (e) => {
@@ -77,16 +78,6 @@ function enableValidation(options) {
     });
 
     setEventListeners(formEL, options);
-    //     // look for all inputs inside of the form
-    //     // loop through all inputs to see if all are valid
-    //     //if input not valid
-    //     // get validation message
-    //     //add error class to input
-    //     // display error mesage
-    //     // disable button
-    //     //if all inputs are valid
-    //     // enable button
-    //     // reset error meesages
   });
 }
 

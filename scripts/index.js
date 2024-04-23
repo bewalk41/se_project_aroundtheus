@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const addCardCloseButton = document.querySelector("#add-card-close-button");
   const imageModal = document.querySelector("#image-modal");
   const modalCaption = document.querySelector("#modal-caption");
+  const modalImage = document.querySelector("#modal-image");
 
   // Functions
   function closePopup(popupElement) {
@@ -90,7 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const trashButton = cardElement.querySelector(".card__trash-button");
 
     // Function to open image modal
-    const modalImage = document.querySelector("#modal-image");
 
     function openImageModal(imageSrc, altText) {
       modalImage.src = imageSrc;
@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function closePopupOnOverlayClick(popupElement) {
-    popupElement.addEventListener("click", (event) => {
+    popupElement.addEventListener("mousedown", (event) => {
       if (event.target === popupElement) {
         closePopup(popupElement);
       }
@@ -144,6 +144,15 @@ document.addEventListener("DOMContentLoaded", () => {
   closePopupOnOverlayClick(addCardModal);
 
   closePopupOnOverlayClick(imageModal);
+
+  function handleKeyDownEvent(e) {
+    if (e.key === "Escape") {
+      const openedModal = document.querySelector(".modal_opened");
+      if (openedModal) {
+        closePopup(openedModal);
+      }
+    }
+  }
 
   // Event listeners
   profileEditButton.addEventListener("click", () => {
@@ -168,21 +177,5 @@ document.addEventListener("DOMContentLoaded", () => {
   addCardForm.addEventListener("submit", handleAddCardSubmit);
   addCardButton.addEventListener("click", openAddCardModal);
   addCardCloseButton.addEventListener("click", closeAddCardModal);
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      // Close profile edit modal
-      if (profileEditModal.classList.contains("modal_opened")) {
-        closePopup(profileEditModal);
-      }
-      // Close add card modal
-      if (addCardModal.classList.contains("modal_opened")) {
-        closePopup(addCardModal);
-      }
-      // Close image modal
-      if (imageModal.classList.contains("modal_opened")) {
-        closePopup(imageModal);
-      }
-    }
-  });
+  document.addEventListener("keydown", handleKeyDownEvent);
 });

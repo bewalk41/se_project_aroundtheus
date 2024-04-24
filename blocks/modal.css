@@ -141,6 +141,20 @@
   border-color: #ff0000;
 }
 
+#profile-title-input-error {
+  transform: translate(0, -50%);
+}
+
+#profile-description-input-error {
+  transform: translate(0, -50%);
+}
+#card-title-input-error {
+  transform: translate(0, -50%);
+}
+#card-image-input-error {
+  transform: translate(0, -50%);
+}
+
 @media screen and (max-width: 630px) {
   .modal__heading {
     font-size: 18px;

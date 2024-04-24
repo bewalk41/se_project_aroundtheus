@@ -145,8 +145,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   closePopupOnOverlayClick(imageModal);
 
-  function handleKeyDownEvent(e) {
-    if (e.key === "Escape") {
+  function openPopup(popupElement) {
+    popupElement.classList.add("modal_opened");
+    document.addEventListener("keydown", closeOnEscape);
+  }
+
+  function closePopup(popupElement) {
+    popupElement.classList.remove("modal_opened");
+    document.removeEventListener("keydown", closeOnEscape);
+  }
+
+  function closeOnEscape(event) {
+    if (event.key === "Escape") {
       const openedModal = document.querySelector(".modal_opened");
       if (openedModal) {
         closePopup(openedModal);
@@ -177,5 +187,4 @@ document.addEventListener("DOMContentLoaded", () => {
   addCardForm.addEventListener("submit", handleAddCardSubmit);
   addCardButton.addEventListener("click", openAddCardModal);
   addCardCloseButton.addEventListener("click", closeAddCardModal);
-  document.addEventListener("keydown", handleKeyDownEvent);
 });

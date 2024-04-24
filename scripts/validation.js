@@ -54,7 +54,6 @@ function toggleButtonState(inputEls, submitButton, { inactiveButtonClass }) {
     return;
   }
   enableButton(submitButton, inactiveButtonClass);
-  submitButton.disabled = false;
 }
 
 function setEventListeners(formEL, options) {

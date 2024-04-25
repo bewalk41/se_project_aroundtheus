@@ -52,9 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalImage = document.querySelector("#modal-image");
 
   // Functions
-  function closePopup(popupElement) {
-    popupElement.classList.remove("modal_opened");
-  }
 
   function handleProfileEditSubmit(e) {
     e.preventDefault();

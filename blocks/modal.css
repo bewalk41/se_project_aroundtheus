@@ -23,7 +23,6 @@
   background-color: white;
   position: relative;
   margin: auto;
-  padding: 36px;
   border-radius: 10px;
   width: 430px;
   height: 330px;
@@ -144,23 +143,23 @@
 
 #profile-title-input-error {
   position: absolute;
-  transform: translate(0, 20px);
+  transform: translate(0, calc(100% + 10px));
   width: 358px;
 }
 
 #profile-description-input-error {
   position: absolute;
-  transform: translate(0, 70px);
+  transform: translate(0, calc(100% + 60px));
   width: 358px;
 }
 #card-title-input-error {
   position: absolute;
-  transform: translate(0, 20px);
+  transform: translate(0, calc(100% + 10px));
   width: 358px;
 }
 #card-image-input-error {
   position: absolute;
-  transform: translate(0, 70px);
+  transform: translate(0, calc(100% + 60px));
   width: 358px;
 }
 
@@ -168,6 +167,7 @@
   .modal__heading {
     font-size: 18px;
     line-height: 21.78px;
+    padding: 25px 0 76px 22px;
   }
 
   .modal__form {
@@ -178,7 +178,7 @@
 
   .modal__close {
     bottom: calc(100% + 13.62px);
-    left: calc(100% - 35px);
+    left: calc(100% - 140px);
     width: 238px;
     height: 22px;
   }
@@ -195,6 +195,7 @@
 
   .modal__container {
     width: 282px;
+    padding: 0;
   }
 
   .modal__input {
@@ -207,6 +208,11 @@
     width: 240px;
     height: 299px;
   }
+
+  .modal__button {
+    padding-bottom: 25px;
+  }
+
   #profile-title-input-error {
     position: absolute;
     left: 60px;

@@ -76,10 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
     addCardForm.reset();
   }
 
-  function openPopup(popupElement) {
-    popupElement.classList.add("modal_opened");
-  }
-
   function getcardElement(data) {
     const cardElement = cardTemplate.cloneNode(true);
     const cardImageEl = cardElement.querySelector(".card__image");

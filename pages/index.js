@@ -1,3 +1,6 @@
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+
 // Initial card data
 const initialCards = [
   {
@@ -51,6 +54,34 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalCaption = document.querySelector("#modal-caption");
   const modalImage = document.querySelector("#modal-image");
 
+  // sprint 7 update
+
+  const validationOptions = {
+    inputSelector: ".modal__input",
+    submitButtonSelector: ".modal__button",
+    inactiveButtonClass: "modal__button_disabled",
+    inputErrorClass: "modal__input_type_error",
+    errorClass: "modal__error_visible",
+  };
+  const editFormValidator = new FormValidator(
+    validationOptions,
+    profileEditForm
+  );
+  const addCardFormValidator = new FormValidator(
+    validationOptions,
+    addCardForm
+  );
+
+  editFormValidator.enableValidation();
+  addCardFormValidator.enableValidation();
+
+  const cardData = {
+    name: "Yosemite Valley",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
+  };
+
+  const card = new Card(cardData, "#card-template");
+  card.getView();
   // Functions
 
   function handleProfileEditSubmit(e) {
@@ -75,6 +106,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Clear input fields
     addCardForm.reset();
   }
+
+  const handleDeleteCard = (cardElement) => {
+    cardElement.remove();
+  };
 
   function getcardElement(data) {
     const cardElement = cardTemplate.cloneNode(true);
@@ -102,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     trashButton.addEventListener("click", () => {
-      cardElement.remove();
+      handleDeleteCard(cardElement);
     });
 
     cardImageEl.src = data.link;

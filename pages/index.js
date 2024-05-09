@@ -47,8 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const addCardForm = document.querySelector("#add-card-form");
   const profileEditForm = profileEditModal.querySelector(".modal__form");
   const cardListEl = document.querySelector(".cards__list");
-  const cardTemplate =
-    document.querySelector("#card-template").content.firstElementChild;
   const addCardCloseButton = document.querySelector("#add-card-close-button");
   const imageModal = document.querySelector("#image-modal");
   const modalCaption = document.querySelector("#modal-caption");
@@ -80,8 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
   };
 
-  const card = new Card(cardData, "#card-template");
-  card.getView();
   // Functions
 
   function handleProfileEditSubmit(e) {
@@ -99,27 +95,41 @@ document.addEventListener("DOMContentLoaded", () => {
     const cardName = cardTitleInput.value;
     const cardImageLink = cardImageInput.value;
     const cardData = { name: cardName, link: cardImageLink };
-    const cardElement = getcardElement(cardData);
+
+    // Validate the form
+    const isValid = addCardFormValidator._hasInvalidInput(); // Check if any input is invalid
+
+    if (isValid) {
+      // At least one field didn't pass validation, so we don't add the card
+      return;
+    }
+
+    // All fields passed validation, proceed to add the card
+    const cardElement = getCardElement(cardData); // Change getcardElement to getCardElement
     cardListEl.prepend(cardElement);
     closeAddCardModal();
 
     // Clear input fields
     addCardForm.reset();
+
+    // Toggle button state after resetting the form
+    addCardFormValidator.toggleButtonState();
   }
 
-  const handleDeleteCard = (cardElement) => {
-    cardElement.remove();
-  };
+  function getCardElement(data) {
+    // Instantiate the Card class with cardData and the card template selector
+    const card = new Card(data, "#card-template");
 
-  function getcardElement(data) {
-    const cardElement = cardTemplate.cloneNode(true);
+    // Get the card element using the getView() method
+    const cardElement = card.getView();
+
+    // Find card elements within the cardElement
     const cardImageEl = cardElement.querySelector(".card__image");
     const cardHeaderEl = cardElement.querySelector(".card__header");
     const likeButton = cardElement.querySelector(".card__like-button");
     const trashButton = cardElement.querySelector(".card__trash-button");
 
     // Function to open image modal
-
     function openImageModal(imageSrc, altText) {
       modalImage.src = imageSrc;
       modalImage.alt = altText;
@@ -136,10 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
       likeButton.classList.toggle("card__like-button_active");
     });
 
-    trashButton.addEventListener("click", () => {
-      handleDeleteCard(cardElement);
-    });
-
+    // Set image source, alt text, and header text
     cardImageEl.src = data.link;
     cardImageEl.alt = data.name;
     cardHeaderEl.textContent = data.name;
@@ -148,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   initialCards.forEach((cardData) => {
-    const cardElement = getcardElement(cardData);
+    const cardElement = getCardElement(cardData);
     cardListEl.append(cardElement);
   });
 

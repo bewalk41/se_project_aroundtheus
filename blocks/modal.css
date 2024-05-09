@@ -143,23 +143,23 @@
 
 #profile-title-input-error {
   position: absolute;
-  transform: translate(0, calc(100% + 10px));
+  transform: translate(-35px, calc(100% + 10px));
   width: 358px;
 }
 
 #profile-description-input-error {
   position: absolute;
-  transform: translate(0, calc(100% + 60px));
+  transform: translate(-35px, calc(100% + 60px));
   width: 358px;
 }
 #card-title-input-error {
   position: absolute;
-  transform: translate(0, calc(100% + 10px));
+  transform: translate(-35px, calc(100% + 10px));
   width: 358px;
 }
 #card-image-input-error {
   position: absolute;
-  transform: translate(0, calc(100% + 60px));
+  transform: translate(-35px, calc(100% + 60px));
   width: 358px;
 }
 

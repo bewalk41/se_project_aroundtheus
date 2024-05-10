@@ -73,12 +73,13 @@ document.addEventListener("DOMContentLoaded", () => {
   editFormValidator.enableValidation();
   addCardFormValidator.enableValidation();
 
-  const cardData = {
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
+  // Define the handleImageClick function to open the image modal
+  const handleImageClick = (link, name) => {
+    modalImage.src = link;
+    modalImage.alt = name;
+    modalCaption.textContent = name;
+    openPopup(imageModal);
   };
-
-  // Functions
 
   function handleProfileEditSubmit(e) {
     e.preventDefault();
@@ -96,14 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const cardImageLink = cardImageInput.value;
     const cardData = { name: cardName, link: cardImageLink };
 
-    // Validate the form
-    const isValid = addCardFormValidator._hasInvalidInput(); // Check if any input is invalid
-
-    if (isValid) {
-      // At least one field didn't pass validation, so we don't add the card
-      return;
-    }
-
     // All fields passed validation, proceed to add the card
     const cardElement = getCardElement(cardData); // Change getcardElement to getCardElement
     cardListEl.prepend(cardElement);
@@ -117,39 +110,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function getCardElement(data) {
-    // Instantiate the Card class with cardData and the card template selector
-    const card = new Card(data, "#card-template");
+    // Instantiate the Card class with cardData, the card template selector, and the handleImageClick function
+    const card = new Card(data, "#card-template", handleImageClick);
 
     // Get the card element using the getView() method
     const cardElement = card.getView();
-
-    // Find card elements within the cardElement
-    const cardImageEl = cardElement.querySelector(".card__image");
-    const cardHeaderEl = cardElement.querySelector(".card__header");
-    const likeButton = cardElement.querySelector(".card__like-button");
-    const trashButton = cardElement.querySelector(".card__trash-button");
-
-    // Function to open image modal
-    function openImageModal(imageSrc, altText) {
-      modalImage.src = imageSrc;
-      modalImage.alt = altText;
-      modalCaption.textContent = altText;
-      openPopup(imageModal);
-    }
-
-    // Add event listener to card image
-    cardImageEl.addEventListener("click", () => {
-      openImageModal(data.link, data.name);
-    });
-
-    likeButton.addEventListener("click", () => {
-      likeButton.classList.toggle("card__like-button_active");
-    });
-
-    // Set image source, alt text, and header text
-    cardImageEl.src = data.link;
-    cardImageEl.alt = data.name;
-    cardHeaderEl.textContent = data.name;
 
     return cardElement;
   }

@@ -4,17 +4,17 @@
     <meta charset="UTF-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Around The U.S.</title>
-    <link href="./pages/index.css" rel="stylesheet" />
-    <link rel="icon" href="favicon.ico" />
-    <meta name="Bryan Walker" content="Software Engineer Beginner" />
+    <link rel="stylesheet" href="<%= require('./pages/index.css') %>" />
+    <link rel="icon" href="<%= require('./images/favicon.ico') %>" />
+    <meta name="author" content="Bryan Walker" />
+    <meta name="description" content="Software Engineer Beginner" />
     <meta name="keywords" content="HTML, CSS, Software" />
-    <link rel="stylesheet" href="pages/index.css" />
   </head>
   <body class="page">
     <div class="page__content">
       <header class="header">
         <img
-          src="./images/logo.svg"
+          src="<%= require('./images/logo.svg') %>"
           alt="Around the U.S. Logo"
           class="header__logo"
         />
@@ -22,7 +22,7 @@
       <main class="content">
         <section class="profile page__section">
           <img
-            src="./images/profile__image.svg"
+            src="<%= require('./images/profile__image.svg') %>"
             class="profile__image"
             alt="Jacques Cousteau"
           />
@@ -100,11 +100,10 @@
         <form class="modal__form" id="add-card-form">
           <input
             class="modal__input modal__input_type_title"
-            type="title"
+            type="text"
             id="card-title-input"
             name="heading"
             placeholder="Title"
-            type="text"
             minlength="1"
             maxlength="30"
             required
@@ -131,7 +130,6 @@
     </div>
 
     <!-- Add Image Modal -->
-
     <div class="modal" id="image-modal">
       <div class="modal__image-container">
         <button
@@ -160,6 +158,6 @@
       </li>
     </template>
 
-    <script src="./pages/index.js" type="module"></script>
+    <script src="<%= require('./pages/index.js') %>" type="module"></script>
   </body>
 </html>

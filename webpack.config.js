@@ -1,4 +1,3 @@
-// webpack.config.js
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
@@ -18,7 +17,9 @@ module.exports = {
   stats: "errors-only",
   mode: "development",
   devServer: {
-    static: path.resolve(__dirname, "dist"),
+    static: {
+      directory: path.resolve(__dirname, "dist"), // Serve files from the 'dist' directory
+    },
     compress: true,
     port: 8080,
     open: true,
@@ -51,6 +52,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
+      favicon: "./src/images/favicon.ico", // Specify the path to the favicon
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin(),

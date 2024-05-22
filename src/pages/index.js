@@ -4,41 +4,13 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
+import { initialCards, validationOptions } from "../utils/constants.js";
 import "../pages/index.css";
-
-// Initial card data
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-  },
-];
 
 document.addEventListener("DOMContentLoaded", () => {
   // DOM elements
   const profileEditButton = document.querySelector("#profile-edit-button");
   const addCardButton = document.querySelector("#add-card-button");
-  const cardListEl = document.querySelector(".cards__list");
 
   // UserInfo instance
   const userInfo = new UserInfo({
@@ -46,14 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
     jobSelector: ".profile__description",
   });
 
-  // Validation options
-  const validationOptions = {
-    inputSelector: ".modal__input",
-    submitButtonSelector: ".modal__button",
-    inactiveButtonClass: "modal__button_disabled",
-    inputErrorClass: "modal__input_type_error",
-    errorClass: "modal__error_visible",
-  };
   const editFormValidator = new FormValidator(
     validationOptions,
     document.querySelector("#profile-edit-modal .modal__form")
@@ -123,8 +87,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Event listeners
   profileEditButton.addEventListener("click", () => {
     const userData = userInfo.getUserInfo();
-    document.querySelector("#profile-title-input").value = userData.name;
-    document.querySelector("#profile-description-input").value = userData.job;
+    profileEditPopup.setInputValues({
+      heading: userData.name,
+      description: userData.job,
+    });
     profileEditPopup.open();
   });
 

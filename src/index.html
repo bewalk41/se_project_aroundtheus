@@ -4,22 +4,17 @@
     <meta charset="UTF-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Around The U.S.</title>
-    <link rel="stylesheet" href="./pages/index.css" /> <!-- Update this line -->
-    <link rel="icon" href="./images/favicon.ico" /> <!-- Update this line -->
+    <link rel="stylesheet" href="./pages/index.css" />
+    <link rel="icon" href="./images/favicon.ico" />
     <meta name="author" content="Bryan Walker" />
     <meta name="description" content="Software Engineer Beginner" />
     <meta name="keywords" content="HTML, CSS, Software" />
   </head>
   <body class="page">
-    <!-- Your HTML content here -->
-    <script src="./pages/index.js" type="module"></script>
-  </body>
-</html>
-  <body class="page">
     <div class="page__content">
       <header class="header">
         <img
-          src="./images/logo.svg"
+          src="<%=require('./images/logo.svg')%>"
           alt="Around the U.S. Logo"
           class="header__logo"
         />
@@ -27,7 +22,7 @@
       <main class="content">
         <section class="profile page__section">
           <img
-            src="./images/profile__image.svg"
+            src="<%=require('./images/profile__image.svg')%>"
             class="profile__image"
             alt="Jacques Cousteau"
           />
@@ -63,7 +58,7 @@
           type="button"
         ></button>
         <h3 class="modal__heading">Edit Profile</h3>
-        <form class="modal__form">
+        <form class="modal__form" id="profile-form" name="profile-form">
           <input
             class="modal__input modal__input_type_name"
             type="text"
@@ -102,7 +97,7 @@
           type="button"
         ></button>
         <h3 class="modal__heading">New Place</h3>
-        <form class="modal__form" id="add-card-form">
+        <form class="modal__form" id="add-card-form" name="card-form">
           <input
             class="modal__input modal__input_type_title"
             type="text"

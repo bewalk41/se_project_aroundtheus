@@ -8,11 +8,9 @@ import { initialCards, validationOptions } from "../utils/constants.js";
 import "../pages/index.css";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // DOM elements
   const profileEditButton = document.querySelector("#profile-edit-button");
   const addCardButton = document.querySelector("#add-card-button");
 
-  // UserInfo instance
   const userInfo = new UserInfo({
     nameSelector: ".profile__name",
     jobSelector: ".profile__description",
@@ -30,12 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
   editFormValidator.enableValidation();
   addCardFormValidator.enableValidation();
 
-  // Define the handleImageClick function to open the image modal
   const handleImageClick = (link, name) => {
     imagePopup.open({ name, link });
   };
 
-  // Instantiate the PopupWithForm for profile editing
   const profileEditPopup = new PopupWithForm(
     "#profile-edit-modal",
     (formData) => {
@@ -47,29 +43,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   );
 
-  // Instantiate the PopupWithForm for adding new cards
   const addCardPopup = new PopupWithForm("#add-card-modal", (formData) => {
     const cardData = { name: formData.heading, link: formData.description };
     const cardElement = getCardElement(cardData);
-    section.addItem(cardElement); // Use section to add the card
+    section.addItem(cardElement);
     addCardPopup.close();
   });
 
-  // Instantiate the PopupWithImage for image modal
   const imagePopup = new PopupWithImage("#image-modal");
 
-  // Set event listeners for the popups
   profileEditPopup.setEventListeners();
   addCardPopup.setEventListeners();
   imagePopup.setEventListeners();
 
-  // Function to get a card element
   function getCardElement(data) {
     const card = new Card(data, "#card-template", handleImageClick);
     return card.getView();
   }
 
-  // Instantiate the Section class
   const section = new Section(
     {
       items: initialCards,
@@ -81,10 +72,8 @@ document.addEventListener("DOMContentLoaded", () => {
     ".cards__list"
   );
 
-  // Render initial cards
   section.renderItems();
 
-  // Event listeners
   profileEditButton.addEventListener("click", () => {
     const userData = userInfo.getUserInfo();
     profileEditPopup.setInputValues({
@@ -92,9 +81,11 @@ document.addEventListener("DOMContentLoaded", () => {
       description: userData.job,
     });
     profileEditPopup.open();
+    editFormValidator.resetValidation();
   });
 
   addCardButton.addEventListener("click", () => {
     addCardPopup.open();
+    addCardFormValidator.resetValidation();
   });
 });

@@ -126,8 +126,8 @@
   font-size: 12px;
   line-height: 15px;
   color: #ff0000;
-  left: 72px;
   width: 100%;
+  left: 72px;
   text-align: left;
   transition: opacity 0.3s;
 }
@@ -145,22 +145,26 @@
   position: absolute;
   transform: translate(-35px, calc(100% + 10px));
   width: 358px;
+  height: 15px;
 }
 
 #profile-description-input-error {
   position: absolute;
   transform: translate(-35px, calc(100% + 60px));
   width: 358px;
+  height: 15px;
 }
 #card-title-input-error {
   position: absolute;
   transform: translate(-35px, calc(100% + 10px));
   width: 358px;
+  height: 15px;
 }
 #card-image-input-error {
   position: absolute;
   transform: translate(-35px, calc(100% + 60px));
   width: 358px;
+  height: 15px;
 }
 
 @media screen and (max-width: 630px) {

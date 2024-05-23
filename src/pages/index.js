@@ -81,11 +81,11 @@ document.addEventListener("DOMContentLoaded", () => {
       description: userData.job,
     });
     profileEditPopup.open();
-    editFormValidator.resetValidation();
+    editFormValidator.resetValidation(); // Reset validation state when popup opens
   });
 
   addCardButton.addEventListener("click", () => {
     addCardPopup.open();
-    addCardFormValidator.resetValidation();
+    addCardFormValidator.resetValidation(); // Reset validation state when popup opens
   });
 });

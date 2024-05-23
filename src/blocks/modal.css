@@ -65,7 +65,7 @@
 }
 
 .modal__input {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   border: 1px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   font-size: 14px;
@@ -81,7 +81,7 @@
   padding: 13.66px 124px 18.49px 125px;
   border: none;
   border-radius: 2px;
-  margin-top: 18px;
+  /* margin-top: 18px; */
   margin-bottom: 36px;
   font-size: 18px;
   text-align: center;
@@ -150,7 +150,7 @@
 
 #profile-description-input-error {
   position: absolute;
-  transform: translate(-35px, calc(100% + 60px));
+  transform: translate(-35px, calc(100% + 70px));
   width: 358px;
   height: 15px;
 }
@@ -162,7 +162,7 @@
 }
 #card-image-input-error {
   position: absolute;
-  transform: translate(-35px, calc(100% + 60px));
+  transform: translate(-35px, calc(100% + 70px));
   width: 358px;
   height: 15px;
 }

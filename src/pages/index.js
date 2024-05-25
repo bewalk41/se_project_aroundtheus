@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   const addCardFormValidator = new FormValidator(
     validationOptions,
-    document.querySelector("#add-card-form")
+    document.querySelector("#add-card-modal .modal__form")
   );
 
   editFormValidator.enableValidation();
@@ -40,6 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
         job: formData.description,
       });
       profileEditPopup.close();
+      // Reset validation after submitting
+      editFormValidator.resetValidation();
     }
   );
 
@@ -48,6 +50,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const cardElement = getCardElement(cardData);
     section.addItem(cardElement);
     addCardPopup.close();
+    // Reset form and validation, then disable button after submitting
+    addCardFormValidator._formElement.reset();
+    addCardFormValidator.resetValidation();
   });
 
   const imagePopup = new PopupWithImage("#image-modal");
@@ -81,11 +86,13 @@ document.addEventListener("DOMContentLoaded", () => {
       description: userData.job,
     });
     profileEditPopup.open();
-    editFormValidator.resetValidation(); // Reset validation state when popup opens
+    // Reset validation when opening the profile edit form
+    editFormValidator.resetValidation();
   });
 
   addCardButton.addEventListener("click", () => {
     addCardPopup.open();
-    addCardFormValidator.resetValidation(); // Reset validation state when popup opens
+    // Disable the submit button when opening the add card form
+    addCardFormValidator.toggleButtonState();
   });
 });

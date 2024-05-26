@@ -6,7 +6,6 @@ class PopupWithForm extends Popup {
     this._handleFormSubmit = handleFormSubmit;
     this._form = this._popupElement.querySelector(".modal__form");
     this._inputList = Array.from(this._form.querySelectorAll(".modal__input"));
-    this._submitButton = this._form.querySelector(".modal__button");
   }
 
   _getInputValues() {
@@ -23,6 +22,7 @@ class PopupWithForm extends Popup {
       evt.preventDefault();
       this._handleFormSubmit(this._getInputValues());
       this._form.reset(); // Reset the form inputs after submitting
+      this.close(); // Close the modal after submitting
     });
   }
 

@@ -46,7 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const cardData = { name: formData.heading, link: formData.description };
     const cardElement = getCardElement(cardData);
     section.addItem(cardElement);
-    addCardFormValidator.toggleButtonState(); // Disable the submit button after form submission
   });
 
   const imagePopup = new PopupWithImage("#image-modal");

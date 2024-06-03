@@ -25,6 +25,7 @@
             class="profile__image"
             alt="Jacques Cousteau"
           />
+          <button class="profile-image__edit-button"></button>
           <div class="profile__info">
             <h1 class="profile__name">Jacques Cousteau</h1>
             <button
@@ -149,12 +150,27 @@
           id="confirm-popup-close-button"
           type="button"
         ></button>
-        <h3 class="modal__heading">Are you sure?</h3>
+        <h3 class="modal__heading_confirm">Are you sure?</h3>
         <div class="modal__actions">
           <button class="modal__button modal__button_confirm" type="button">
             Yes
           </button>
         </div>
+      </div>
+    </div>
+
+    <!-- Change Profile Picture Modal -->
+    <div class="modal" id="profile-popup">
+      <div class="modal__container">
+        <button
+          class="modal__close"
+          id="profile-popup-close-button"
+          type="button"
+        ></button>
+        <h3 class="modal__heading">Are you sure?</h3>
+        <button class="modal__button modal__button_profile" type="button">
+          Yes
+        </button>
       </div>
     </div>
 

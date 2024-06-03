@@ -24,6 +24,18 @@
   overflow: hidden;
 }
 
+/* .profile-image__edit-button {
+  display: none;
+  position: absolute; 
+  top: 0;
+  right: 0;
+  background: url("../images/edit-icon.svg") no-repeat center center; 
+  width: 24px;
+  height: 24px;
+  border: none; 
+  cursor: pointer;
+} */
+
 .profile__name {
   font-size: 42px;
   line-height: 48px;

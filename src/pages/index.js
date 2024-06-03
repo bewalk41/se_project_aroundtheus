@@ -2,7 +2,7 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-import PopupWithConfirm from "../components/PopupWithConfirm.js"; // Import the PopupWithConfirm class
+import PopupWithConfirm from "../components/PopupWithConfirm.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
 import { initialCards, validationOptions } from "../utils/constants.js";
@@ -44,18 +44,18 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
   const addCardPopup = new PopupWithForm("#add-card-modal", (formData) => {
-    const cardData = { name: formData.heading, link: formData.description };
+    const cardData = {
+      name: formData.heading,
+      link: formData.description,
+      _id: formData._id,
+    };
     const cardElement = getCardElement(cardData);
     section.addItem(cardElement);
   });
 
   const imagePopup = new PopupWithImage("#image-modal");
 
-  const confirmPopup = new PopupWithConfirm("#confirm-popup", () => {
-    // Delete the card associated with the confirmation modal
-    cardToRemove.remove(); // Assuming cardToRemove is the card to be deleted
-    confirmPopup.close();
-  });
+  const confirmPopup = new PopupWithConfirm("#confirm-popup", () => {});
 
   profileEditPopup.setEventListeners();
   addCardPopup.setEventListeners();
@@ -63,9 +63,14 @@ document.addEventListener("DOMContentLoaded", () => {
   confirmPopup.setEventListeners();
 
   function getCardElement(data) {
-    const card = new Card(data, "#card-template", handleImageClick, () => {
-      confirmPopup.open(); // Open the confirmation modal
-    });
+    const card = new Card(
+      data,
+      "#card-template",
+      handleImageClick,
+      (cardId, cardElement) => {
+        confirmPopup.open(cardId, cardElement);
+      }
+    );
     return card.getView();
   }
 
@@ -89,11 +94,11 @@ document.addEventListener("DOMContentLoaded", () => {
       description: userData.job,
     });
     profileEditPopup.open();
-    editFormValidator.resetValidation(); // Reset validation when opening the profile edit form
+    editFormValidator.resetValidation();
   });
 
   addCardButton.addEventListener("click", () => {
     addCardPopup.open();
-    addCardFormValidator.toggleButtonState(); // Disable the submit button when opening the add card form
+    addCardFormValidator.toggleButtonState();
   });
 });

@@ -2,6 +2,7 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithConfirm from "../components/PopupWithConfirm.js"; // Import the PopupWithConfirm class
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
 import { initialCards, validationOptions } from "../utils/constants.js";
@@ -50,12 +51,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const imagePopup = new PopupWithImage("#image-modal");
 
+  const confirmPopup = new PopupWithConfirm("#confirm-popup", () => {
+    // Delete the card associated with the confirmation modal
+    cardToRemove.remove(); // Assuming cardToRemove is the card to be deleted
+    confirmPopup.close();
+  });
+
   profileEditPopup.setEventListeners();
   addCardPopup.setEventListeners();
   imagePopup.setEventListeners();
+  confirmPopup.setEventListeners();
 
   function getCardElement(data) {
-    const card = new Card(data, "#card-template", handleImageClick);
+    const card = new Card(data, "#card-template", handleImageClick, () => {
+      confirmPopup.open(); // Open the confirmation modal
+    });
     return card.getView();
   }
 

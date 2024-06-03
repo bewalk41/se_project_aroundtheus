@@ -1,9 +1,15 @@
 export default class Card {
-  constructor({ name, link }, cardSelector, handleImageClick) {
+  constructor(
+    { name, link },
+    cardSelector,
+    handleImageClick,
+    handleDeleteClick
+  ) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
+    this._handleDeleteClick = handleDeleteClick; // Add handleDeleteClick callback
   }
 
   _setEventListener() {
@@ -36,8 +42,10 @@ export default class Card {
   }
 
   _handleDeleteCard() {
-    this._cardElement.remove();
-    this._cardElement = null;
+    // Check if handleDeleteClick callback is defined
+    if (typeof this._handleDeleteClick === "function") {
+      this._handleDeleteClick(); // Call handleDeleteClick callback
+    }
   }
 
   getView() {

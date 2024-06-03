@@ -167,6 +167,26 @@
   height: 15px;
 }
 
+.modal__confirmcontainer {
+  background-color: white;
+  position: relative;
+  margin: auto;
+  border-radius: 10px;
+  width: 430px;
+  height: 181px;
+}
+
+.modal__actions {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.modal__button_confirm {
+  font-size: 18px;
+  text-align: center; /* Center text horizontally */
+}
+
 @media screen and (max-width: 630px) {
   .modal__heading {
     font-size: 18px;

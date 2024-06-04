@@ -1,6 +1,7 @@
 import Popup from "./Popup.js";
+import api from "./Api.js"; // Import the api instance
 
-class PopupWithProfile extends Popup {
+class UpdateAvatar extends Popup {
   constructor(popupSelector) {
     super(popupSelector);
     this._profileImageInput = this._popupElement.querySelector(
@@ -24,12 +25,18 @@ class PopupWithProfile extends Popup {
   _handleFormSubmit(event) {
     event.preventDefault();
     const newImageUrl = this._profileImageInput.value;
-    const profileImageElement = document.querySelector(".profile__image");
-    if (profileImageElement) {
-      profileImageElement.src = newImageUrl;
-    }
-    this.close();
+
+    api
+      .setUserAvatar({ avatar: newImageUrl })
+      .then((data) => {
+        const profileImageElement = document.querySelector(".profile__image");
+        if (profileImageElement) {
+          profileImageElement.src = data.avatar;
+        }
+        this.close();
+      })
+      .catch((err) => console.error(err));
   }
 }
 
-export default PopupWithProfile;
+export default UpdateAvatar;

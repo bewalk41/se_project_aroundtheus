@@ -167,49 +167,61 @@
   height: 15px;
 }
 
-.modal__confirmcontainer {
+.modal__confirmcontainer,
+.modal__avatarcontainer {
   background-color: white;
   position: relative;
   margin: auto;
   border-radius: 10px;
   width: 430px;
-  height: 181px;
 }
 
-.modal__profilecontainer {
-  background-color: white;
-  position: relative;
-  margin: auto;
-  border-radius: 10px;
-  width: 430px;
+.modal__confirmcontainer {
+  height: 181px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center; /* Ensure text is centered */
+}
+
+.modal__avatarcontainer {
   height: 272px;
 }
 
-#profile-image-form {
-  padding-bottom: 48px;
-}
-
-.modal__butt .modal__actions {
-  display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-}
-
-.modal__button_confirm {
-  font-size: 20px;
-  text-align: center; /* Center text horizontally */
-}
-
-.modal__heading_confirm {
+.modal__heading_confirm,
+.modal__heading {
   font-family: "Inter", "Arial", sans-serif;
   color: #000;
   font-weight: 900;
   font-size: 24px;
   line-height: 29.05px;
   margin: 0;
-  padding-left: 36px;
   padding-top: 34px;
-  padding-bottom: 38px;
+}
+
+.modal__heading_confirm {
+  padding-bottom: 20px; /* Adjust padding to fit the container */
+}
+
+.modal__actions {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.modal__button_confirm,
+.modal__profilebutton {
+  font-size: 20px;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  padding: 10px 20px; /* Add some padding for better button appearance */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #000000; /* Add a background color for visibility */
+  color: white;
 }
 
 @media screen and (max-width: 630px) {

@@ -3,10 +3,11 @@ import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithConfirm from "../components/PopupWithConfirm.js";
+import PopupWithProfile from "../components/PopupwithProfile";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
 import { initialCards, validationOptions } from "../utils/constants.js";
-import "../pages/index.css";
+import "../pages/index.css"; // Ensure the CSS path is correct
 
 document.addEventListener("DOMContentLoaded", () => {
   const profileEditButton = document.querySelector("#profile-edit-button");
@@ -44,31 +45,33 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
   const addCardPopup = new PopupWithForm("#add-card-modal", (formData) => {
-    const cardData = {
-      name: formData.heading,
-      link: formData.description,
-      _id: formData._id,
-    };
+    const cardData = { name: formData.heading, link: formData.description };
     const cardElement = getCardElement(cardData);
     section.addItem(cardElement);
   });
 
   const imagePopup = new PopupWithImage("#image-modal");
 
-  const confirmPopup = new PopupWithConfirm("#confirm-popup", () => {});
+  const confirmPopup = new PopupWithConfirm("#confirm-popup", (cardElement) => {
+    cardElement.remove();
+    confirmPopup.close();
+  });
+
+  const profilePopup = new PopupWithProfile("#profile-popup"); // Create an instance of PopupWithProfile
 
   profileEditPopup.setEventListeners();
   addCardPopup.setEventListeners();
   imagePopup.setEventListeners();
   confirmPopup.setEventListeners();
+  profilePopup.setEventListeners(); // Set event listeners for the profile popup
 
   function getCardElement(data) {
     const card = new Card(
       data,
       "#card-template",
       handleImageClick,
-      (cardId, cardElement) => {
-        confirmPopup.open(cardId, cardElement);
+      (cardElement) => {
+        confirmPopup.open(cardElement);
       }
     );
     return card.getView();
@@ -94,11 +97,11 @@ document.addEventListener("DOMContentLoaded", () => {
       description: userData.job,
     });
     profileEditPopup.open();
-    editFormValidator.resetValidation();
+    editFormValidator.resetValidation(); // Reset validation when opening the profile edit form
   });
 
   addCardButton.addEventListener("click", () => {
     addCardPopup.open();
-    addCardFormValidator.toggleButtonState();
+    addCardFormValidator.toggleButtonState(); // Disable the submit button when opening the add card form
   });
 });

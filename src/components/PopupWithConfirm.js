@@ -55,7 +55,7 @@ export default class PopupWithConfirm extends Popup {
               console.error("Failed to delete card:", data);
             }
           })
-          .catch((error) => console.error("Error:", error));
+          .catch((error) => console.error("Error not working:", error));
       });
     }
   }

@@ -1,0 +1,35 @@
+import Popup from "./Popup.js";
+
+class PopupWithProfile extends Popup {
+  constructor(popupSelector) {
+    super(popupSelector);
+    this._profileImageInput = this._popupElement.querySelector(
+      "#profile-image-input"
+    );
+    this._profileImageButton = document.querySelector(".profile__image-button");
+    this._handleFormSubmit = this._handleFormSubmit.bind(this);
+  }
+
+  setEventListeners() {
+    super.setEventListeners();
+    const profileImageForm = this._popupElement.querySelector(
+      "#profile-image-form"
+    );
+    profileImageForm.addEventListener("submit", this._handleFormSubmit);
+    this._profileImageButton.addEventListener("click", () => {
+      this.open();
+    });
+  }
+
+  _handleFormSubmit(event) {
+    event.preventDefault();
+    const newImageUrl = this._profileImageInput.value;
+    const profileImageElement = document.querySelector(".profile__image");
+    if (profileImageElement) {
+      profileImageElement.src = newImageUrl;
+    }
+    this.close();
+  }
+}
+
+export default PopupWithProfile;

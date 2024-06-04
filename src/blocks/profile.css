@@ -10,6 +10,12 @@
   border-radius: 50%;
   object-fit: cover;
   background-position: center;
+}
+
+.profile-image__edit-container {
+  position: relative;
+  width: 120px; /* Same as profile image width */
+  height: 120px; /* Same as profile image height */
   margin-right: 24px;
 }
 
@@ -24,17 +30,27 @@
   overflow: hidden;
 }
 
-/* .profile-image__edit-button {
-  display: none;
-  position: absolute; 
-  top: 0;
-  right: 0;
-  background: url("../images/edit-icon.svg") no-repeat center center; 
+.profile__image-button {
+  background: transparent url(../images/Edit\ image.svg) center no-repeat;
   width: 24px;
   height: 24px;
-  border: none; 
+  z-index: 50;
+  border: none;
+  position: absolute;
+  left: 50px;
+  top: 50px;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease;
+}
+
+.profile-image__edit-container:hover .profile__image {
+  opacity: 0.5; /* Darken the image on hover */
+}
+
+.profile-image__edit-container:hover .profile__image-button {
+  opacity: 1; /* Show the button on hover */
   cursor: pointer;
-} */
+}
 
 .profile__name {
   font-size: 42px;

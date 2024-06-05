@@ -11,30 +11,18 @@ class Api {
     return Promise.reject(`Error: ${res.status}`);
   }
 
-  _handleError(err) {
-    console.error("API Error:", err);
-    throw err;
-  }
-
-  // 1. Loading user information from the server
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
-    })
-      .then(this._checkResponse)
-      .catch(this._handleError);
+    }).then(this._checkResponse);
   }
 
-  // 2. Loading cards from the server
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
-    })
-      .then(this._checkResponse)
-      .catch(this._handleError);
+    }).then(this._checkResponse);
   }
 
-  // 3. Editing the profile
   setUserInfo(data) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
@@ -43,12 +31,9 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    })
-      .then(this._checkResponse)
-      .catch(this._handleError);
+    }).then(this._checkResponse);
   }
 
-  // 4. Adding a new card
   addCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
@@ -57,41 +42,30 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    })
-      .then(this._checkResponse)
-      .catch(this._handleError);
+    }).then(this._checkResponse);
   }
 
-  // 6. Deleting a card
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then(this._checkResponse)
-      .catch(this._handleError);
+    }).then(this._checkResponse);
   }
 
-  // 7. Adding and removing likes
   likeCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this._headers,
-    })
-      .then(this._checkResponse)
-      .catch(this._handleError);
+    }).then(this._checkResponse);
   }
 
   dislikeCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then(this._checkResponse)
-      .catch(this._handleError);
+    }).then(this._checkResponse);
   }
 
-  // 8. Updating profile picture
   setUserAvatar(data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
@@ -100,9 +74,7 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    })
-      .then(this._checkResponse)
-      .catch(this._handleError);
+    }).then(this._checkResponse);
   }
 }
 

@@ -186,6 +186,7 @@
 }
 
 .modal__avatarcontainer {
+  left: 100px;
   height: 272px;
 }
 

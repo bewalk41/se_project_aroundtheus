@@ -6,6 +6,7 @@ export default class PopupWithConfirmation extends Popup {
     this._confirmButton = this._popupElement.querySelector(
       ".modal__button_confirm"
     );
+    this._confirmButtonText = this._confirmButton.textContent; // Store the initial button text
   }
 
   setConfirmationHandler(handler) {
@@ -24,5 +25,13 @@ export default class PopupWithConfirmation extends Popup {
         this._handleConfirm(this._data);
       }
     });
+  }
+
+  renderLoading(isLoading, loadingText = "Saving...") {
+    if (isLoading) {
+      this._confirmButton.textContent = loadingText;
+    } else {
+      this._confirmButton.textContent = this._confirmButtonText;
+    }
   }
 }

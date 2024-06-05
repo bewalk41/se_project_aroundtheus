@@ -5,7 +5,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
-import { validationOptions } from "../utils/constants.js";
+import { validationOptions, initialCards } from "../utils/constants.js"; // Import initial cards
 import "../pages/index.css"; // Ensure the CSS path is correct
 import api from "../components/Api.js"; // Import the api instance
 
@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const userInfo = new UserInfo({
     nameSelector: ".profile__name",
     jobSelector: ".profile__description",
+    avatarSelector: ".profile__image", // Add the avatar selector
   });
 
   const editFormValidator = new FormValidator(
@@ -76,13 +77,15 @@ document.addEventListener("DOMContentLoaded", () => {
   confirmPopup.setEventListeners();
 
   confirmPopup.setConfirmationHandler(({ cardId, cardElement }) => {
+    confirmPopup.renderLoading(true);
     api
       .deleteCard(cardId)
       .then(() => {
         cardElement.remove();
         confirmPopup.close();
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
+      .finally(() => confirmPopup.renderLoading(false));
   });
 
   profileEditPopup.setEventListeners();
@@ -93,11 +96,8 @@ document.addEventListener("DOMContentLoaded", () => {
     updateAvatarPopup.renderLoading(true);
     api
       .setUserAvatar({ avatar: formData.description })
-      .then(() => {
-        const profileImageElement = document.querySelector(".profile__image");
-        if (profileImageElement) {
-          profileImageElement.src = formData.description;
-        }
+      .then((data) => {
+        userInfo.setUserAvatar(data.avatar);
         updateAvatarPopup.close();
       })
       .catch((err) => console.error(err))
@@ -113,6 +113,23 @@ document.addEventListener("DOMContentLoaded", () => {
       handleImageClick,
       (cardId, cardElement) => {
         confirmPopup.open({ cardId, cardElement });
+      },
+      (cardId, isLiked, card) => {
+        if (isLiked) {
+          api
+            .dislikeCard(cardId)
+            .then((response) => {
+              card.setIsLiked(false);
+            })
+            .catch((err) => console.error(err));
+        } else {
+          api
+            .likeCard(cardId)
+            .then((response) => {
+              card.setIsLiked(true);
+            })
+            .catch((err) => console.error(err));
+        }
       }
     );
     return card.getView();
@@ -120,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const section = new Section(
     {
-      items: [],
+      items: initialCards, // Use the initial cards array
       renderer: (cardData) => {
         const cardElement = getCardElement(cardData);
         section.addItem(cardElement);
@@ -148,13 +165,12 @@ document.addEventListener("DOMContentLoaded", () => {
     updateAvatarPopup.open();
   });
 
-  // // Fetch and render initial cards
-  // api
-  //   .getInitialCards()
-  //   .then((initialCards) => {
-  //     section.renderItems(initialCards);
-  //   })
-  //   .catch((err) => console.error(err));
+  api
+    .getUserInfo()
+    .then((userData) => {
+      userInfo.setUserInfo(userData);
+    })
+    .catch((err) => console.error("Error fetching user info:", err));
 
   api
     .getInitialCards()

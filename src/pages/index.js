@@ -5,9 +5,9 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
-import { validationOptions, initialCards } from "../utils/constants.js"; // Import initial cards
-import "../pages/index.css"; // Ensure the CSS path is correct
-import api from "../components/Api.js"; // Import the api instance
+import { validationOptions, initialCards } from "../utils/constants.js";
+import "../pages/index.css";
+import api from "../components/Api.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const profileEditButton = document.querySelector("#profile-edit-button");
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const userInfo = new UserInfo({
     nameSelector: ".profile__name",
     jobSelector: ".profile__description",
-    avatarSelector: ".profile__image", // Add the avatar selector
+    avatarSelector: ".profile__image",
   });
 
   const editFormValidator = new FormValidator(
@@ -29,8 +29,31 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   editFormValidator.enableValidation();
   addCardFormValidator.enableValidation();
+
   const handleImageClick = (link, name) => {
     imagePopup.open({ name, link });
+  };
+
+  const handleDeleteClick = (cardId, cardElement) => {
+    // Handle delete card action
+  };
+
+  const handleLikeIcon = (cardId, isLiked, card) => {
+    if (isLiked) {
+      api
+        .dislikeCard(cardId)
+        .then((response) => {
+          card.setIsLiked(false);
+        })
+        .catch((err) => console.error(err));
+    } else {
+      api
+        .likeCard(cardId)
+        .then((response) => {
+          card.setIsLiked(true);
+        })
+        .catch((err) => console.error(err));
+    }
   };
 
   const profileEditPopup = new PopupWithForm(
@@ -74,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
   confirmPopup.setEventListeners();
 
   confirmPopup.setConfirmationHandler(({ cardId, cardElement }) => {
-    console.log(`Card ID to delete: ${cardId}`); // Add this line to debug
+    console.log(`Card ID to delete: ${cardId}`);
     confirmPopup.renderLoading(true);
     api
       .deleteCard(cardId)
@@ -109,34 +132,15 @@ document.addEventListener("DOMContentLoaded", () => {
       data,
       "#card-template",
       handleImageClick,
-      (cardId, cardElement) => {
-        console.log(`Opening confirmation for card ID: ${cardId}`); // Add this line to debug
-        confirmPopup.open({ cardId: cardId, cardElement: cardElement }); // Ensure data is passed correctly
-      },
-      (cardId, isLiked, card) => {
-        if (isLiked) {
-          api
-            .dislikeCard(cardId)
-            .then((response) => {
-              card.setIsLiked(false);
-            })
-            .catch((err) => console.error(err));
-        } else {
-          api
-            .likeCard(cardId)
-            .then((response) => {
-              card.setIsLiked(true);
-            })
-            .catch((err) => console.error(err));
-        }
-      }
+      handleDeleteClick,
+      handleLikeIcon
     );
     return card.getView();
   }
 
   const section = new Section(
     {
-      items: initialCards, // Use the initial cards array
+      items: initialCards,
       renderer: (cardData) => {
         const cardElement = getCardElement(cardData);
         section.addItem(cardElement);
@@ -152,12 +156,12 @@ document.addEventListener("DOMContentLoaded", () => {
       description: userData.job,
     });
     profileEditPopup.open();
-    editFormValidator.resetValidation(); // Reset validation when opening the profile edit form
+    editFormValidator.resetValidation();
   });
 
   addCardButton.addEventListener("click", () => {
     addCardPopup.open();
-    addCardFormValidator.toggleButtonState(); // Disable the submit button when opening the add card form
+    addCardFormValidator.toggleButtonState();
   });
 
   profileImageButton.addEventListener("click", () => {

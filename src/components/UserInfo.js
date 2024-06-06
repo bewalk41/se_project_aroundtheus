@@ -26,7 +26,9 @@ class UserInfo {
   }
 
   setUserAvatar(avatar) {
-    this._avatarElement.src = avatar;
+    if (avatar) {
+      this._avatarElement.src = avatar;
+    }
   }
 }
 

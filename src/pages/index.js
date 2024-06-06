@@ -174,7 +174,6 @@ document.addEventListener("DOMContentLoaded", () => {
   api
     .getInitialCards()
     .then((initialCards) => {
-      console.log("Initial Cards:", initialCards); // Log the initial cards data
       section.renderItems(initialCards);
     })
     .catch((err) => console.error("Error fetching initial cards:", err));

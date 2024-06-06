@@ -55,14 +55,11 @@ class Api {
   likeCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
-      headers: {
-        ...this._headers,
-        "Content-Type": "application/json",
-      },
+      headers: this._headers,
     }).then(this._checkResponse);
   }
 
-  unlikeCard(cardId) {
+  dislikeCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
@@ -84,7 +81,7 @@ class Api {
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
-    authorization: "f2772a6b-ab7a-4d91-8e26-99a73e7be810",
+    authorization: "95911d4c-3b87-4fef-8795-58f29f199177",
     "Content-Type": "application/json",
   },
 });

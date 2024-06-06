@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const handleDeleteClick = (cardId, cardElement) => {
-    // Handle delete card action
+    confirmPopup.open({ cardId, cardElement });
   };
 
   const handleLikeIcon = (cardId, isLiked, card) => {

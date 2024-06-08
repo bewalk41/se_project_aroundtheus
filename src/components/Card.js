@@ -45,9 +45,8 @@ export default class Card {
       .cloneNode(true);
 
     const cardTitle = this._cardElement.querySelector(".card__header");
-    cardTitle.textContent = this._name;
-
     const cardImage = this._cardElement.querySelector(".card__image");
+    cardTitle.textContent = this._name;
     cardImage.src = this._link;
     cardImage.alt = this._name;
 
@@ -74,9 +73,9 @@ export default class Card {
   _renderLikes() {
     const likeButton = this._cardElement.querySelector(".card__like-button");
     if (this._isLiked) {
-      likeButton.classList.add("card__like-button_active");
+      likeButton.classList.add("card__like-button_filled");
     } else {
-      likeButton.classList.remove("card__like-button_active");
+      likeButton.classList.remove("card__like-button_filled");
     }
   }
 }

@@ -6,11 +6,16 @@ class UserInfo {
   }
 
   getUserInfo() {
-    return {
+    const userInfo = {
       name: this._nameElement.textContent,
       job: this._jobElement.textContent,
-      avatar: this._avatarElement.src,
     };
+
+    if (this._avatarElement) {
+      userInfo.avatar = this._avatarElement.src;
+    }
+
+    return userInfo;
   }
 
   setUserInfo({ name, job, avatar }) {

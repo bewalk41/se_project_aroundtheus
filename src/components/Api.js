@@ -11,18 +11,30 @@ class Api {
     return Promise.reject(`Error: ${res.status}`);
   }
 
+  _handleError(err) {
+    console.error(err);
+    throw err; // Rethrow the error to be caught by the caller
+  }
+
+  // Loading user information from the server
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
-    }).then(this._checkResponse);
+    })
+      .then(this._checkResponse)
+      .catch(this._handleError);
   }
 
+  // Loading cards from the server
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
-    }).then(this._checkResponse);
+    })
+      .then(this._checkResponse)
+      .catch(this._handleError);
   }
 
+  // Editing the profile
   setUserInfo(data) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
@@ -31,9 +43,12 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    }).then(this._checkResponse);
+    })
+      .then(this._checkResponse)
+      .catch(this._handleError);
   }
 
+  // Adding a new card
   addCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
@@ -42,30 +57,32 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    }).then(this._checkResponse);
+    })
+      .then(this._checkResponse)
+      .catch(this._handleError);
   }
 
+  // Deleting a card
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._checkResponse);
+    })
+      .then(this._checkResponse)
+      .catch(this._handleError);
   }
 
+  // Adding and removing likes
   likeCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this._headers,
-    }).then(this._checkResponse);
+    })
+      .then(this._checkResponse)
+      .catch(this._handleError);
   }
 
-  dislikeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-      method: "DELETE",
-      headers: this._headers,
-    }).then(this._checkResponse);
-  }
-
+  // Updating profile picture
   setUserAvatar(data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
@@ -74,14 +91,25 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    }).then(this._checkResponse);
+    })
+      .then(this._checkResponse)
+      .catch(this._handleError);
+  }
+
+  // Fetch both user info and initial cards concurrently
+  getAppInfo() {
+    return Promise.all([this.getUserInfo(), this.getInitialCards()])
+      .then(([userInfo, initialCards]) => {
+        return { userInfo, initialCards };
+      })
+      .catch(this._handleError);
   }
 }
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
-    authorization: "95911d4c-3b87-4fef-8795-58f29f199177",
+    authorization: "f2772a6b-ab7a-4d91-8e26-99a73e7be810",
     "Content-Type": "application/json",
   },
 });

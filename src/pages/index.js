@@ -5,9 +5,9 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
-import { validationOptions, initialCards } from "../utils/constants.js";
-import "../pages/index.css";
-import api from "../components/Api.js";
+import { validationOptions, initialCards } from "../utils/constants.js"; // Import initial cards
+import "../pages/index.css"; // Ensure the CSS path is correct
+import api from "../components/Api.js"; // Import the api instance
 
 document.addEventListener("DOMContentLoaded", () => {
   const profileEditButton = document.querySelector("#profile-edit-button");
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const userInfo = new UserInfo({
     nameSelector: ".profile__name",
     jobSelector: ".profile__description",
-    avatarSelector: ".profile__image",
+    avatarSelector: ".profile__image", // Add the avatar selector
   });
 
   const editFormValidator = new FormValidator(
@@ -29,31 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   editFormValidator.enableValidation();
   addCardFormValidator.enableValidation();
-
   const handleImageClick = (link, name) => {
     imagePopup.open({ name, link });
-  };
-
-  const handleDeleteClick = (cardId, cardElement) => {
-    confirmPopup.open({ cardId, cardElement });
-  };
-
-  const handleLikeIcon = (cardId, isLiked, card) => {
-    if (isLiked) {
-      api
-        .dislikeCard(cardId)
-        .then((response) => {
-          card.setIsLiked(false);
-        })
-        .catch((err) => console.error(err));
-    } else {
-      api
-        .likeCard(cardId)
-        .then((response) => {
-          card.setIsLiked(true);
-        })
-        .catch((err) => console.error(err));
-    }
   };
 
   const profileEditPopup = new PopupWithForm(
@@ -97,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
   confirmPopup.setEventListeners();
 
   confirmPopup.setConfirmationHandler(({ cardId, cardElement }) => {
-    console.log(`Card ID to delete: ${cardId}`);
+    console.log(`Card ID to delete: ${cardId}`); // Add this line to debug
     confirmPopup.renderLoading(true);
     api
       .deleteCard(cardId)
@@ -132,15 +109,33 @@ document.addEventListener("DOMContentLoaded", () => {
       data,
       "#card-template",
       handleImageClick,
-      handleDeleteClick,
-      handleLikeIcon
+      (cardId, cardElement) => {
+        confirmPopup.open({ cardId, cardElement });
+      },
+      (cardId, isLiked, card) => {
+        if (isLiked) {
+          api
+            .dislikeCard(cardId)
+            .then((response) => {
+              card.setIsLiked(false); // Update card state to not liked
+            })
+            .catch((err) => console.error(err));
+        } else {
+          api
+            .likeCard(cardId)
+            .then((response) => {
+              card.setIsLiked(true); // Update card state to liked
+            })
+            .catch((err) => console.error(err));
+        }
+      }
     );
     return card.getView();
   }
 
   const section = new Section(
     {
-      items: initialCards,
+      items: initialCards, // Use the initial cards array
       renderer: (cardData) => {
         const cardElement = getCardElement(cardData);
         section.addItem(cardElement);
@@ -156,12 +151,12 @@ document.addEventListener("DOMContentLoaded", () => {
       description: userData.job,
     });
     profileEditPopup.open();
-    editFormValidator.resetValidation();
+    editFormValidator.resetValidation(); // Reset validation when opening the profile edit form
   });
 
   addCardButton.addEventListener("click", () => {
     addCardPopup.open();
-    addCardFormValidator.toggleButtonState();
+    addCardFormValidator.toggleButtonState(); // Disable the submit button when opening the add card form
   });
 
   profileImageButton.addEventListener("click", () => {

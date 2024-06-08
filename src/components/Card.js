@@ -1,15 +1,18 @@
 export default class Card {
   constructor(
-    { name, link },
+    { name, link, isLiked },
     cardSelector,
     handleImageClick,
-    handleDeleteClick
+    handleDeleteClick,
+    handleLikeIcon
   ) {
     this._name = name;
     this._link = link;
+    this._isLiked = isLiked; // Initialize the like status
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
     this._handleDeleteClick = handleDeleteClick;
+    this._handleLikeIcon = handleLikeIcon;
   }
 
   _setEventListeners() {
@@ -24,6 +27,13 @@ export default class Card {
     cardImage.addEventListener("click", () => {
       if (typeof this._handleImageClick === "function") {
         this._handleImageClick(this._link, this._name);
+      }
+    });
+
+    const likeButton = this._cardElement.querySelector(".card__like-button");
+    likeButton.addEventListener("click", () => {
+      if (typeof this._handleLikeIcon === "function") {
+        this._handleLikeIcon(!this._isLiked); // Toggle the like status
       }
     });
   }
@@ -41,8 +51,32 @@ export default class Card {
     cardImage.src = this._link;
     cardImage.alt = this._name;
 
+    // Set initial like status
+    this._renderLikes();
+
     this._setEventListeners();
 
     return this._cardElement;
+  }
+
+  // Method to update the like status
+  setIsLiked(isLiked) {
+    this._isLiked = isLiked;
+    this._renderLikes();
+  }
+
+  // Method to get the current like status
+  isLiked() {
+    return this._isLiked;
+  }
+
+  // Method to render the like button state based on the current like status
+  _renderLikes() {
+    const likeButton = this._cardElement.querySelector(".card__like-button");
+    if (this._isLiked) {
+      likeButton.classList.add("card__like-button_active");
+    } else {
+      likeButton.classList.remove("card__like-button_active");
+    }
   }
 }

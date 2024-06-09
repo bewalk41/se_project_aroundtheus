@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .addCard(cardData)
       .then((data) => {
         const cardElement = getCardElement(data);
-        section.addItem(cardElement);
+        section.addItem(cardElement); // Use the `section` variable
         addCardPopup.close();
       })
       .catch((err) => console.error(err))
@@ -134,13 +134,15 @@ document.addEventListener("DOMContentLoaded", () => {
     return card.getView(userInfo.getUserInfo()._id);
   }
 
+  let section; // Declare the `section` variable
+
   // Fetch and display user info and initial cards
   api
     .getAppInfo()
     .then(({ userInfo: userData, initialCards }) => {
       userInfo.setUserInfo(userData);
 
-      const section = new Section(
+      section = new Section(
         {
           items: initialCards, // Pass initial cards to Section
           renderer: (cardData) => {

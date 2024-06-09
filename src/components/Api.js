@@ -12,46 +12,31 @@ class Api {
   }
 
   _handleError(err) {
-    console.error("API Error:", err);
-    throw err;
+    console.error(err);
+    throw err; // Rethrow the error to be caught by the caller
   }
 
-  getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers,
-    })
+  getUserInfo() {
+    return fetch(`${this._baseUrl}/users/me`, { headers: this._headers })
       .then(this._checkResponse)
       .catch(this._handleError);
   }
 
-  getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
-    })
+  getInitialCards() {
+    return fetch(`${this._baseUrl}/cards`, { headers: this._headers })
       .then(this._checkResponse)
+      .then((data) => {
+        console.log("Fetched initial cards:", data);
+        return data;
+      })
       .catch(this._handleError);
   }
 
   setUserInfo(data) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
-      headers: this._headers,
-      body: JSON.stringify({
-        name: data.name,
-        about: data.about,
-      }),
-    })
-      .then(this._checkResponse)
-      .catch(this._handleError);
-  }
-
-  setUserAvatar(data) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
-      method: "PATCH",
-      headers: this._headers,
-      body: JSON.stringify({
-        avatar: data.avatar,
-      }),
+      headers: { ...this._headers, "Content-Type": "application/json" },
+      body: JSON.stringify(data),
     })
       .then(this._checkResponse)
       .catch(this._handleError);
@@ -60,7 +45,7 @@ class Api {
   addCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
-      headers: this._headers,
+      headers: { ...this._headers, "Content-Type": "application/json" },
       body: JSON.stringify(data),
     })
       .then(this._checkResponse)
@@ -94,6 +79,16 @@ class Api {
       .catch(this._handleError);
   }
 
+  setUserAvatar(data) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: { ...this._headers, "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then(this._checkResponse)
+      .catch(this._handleError);
+  }
+
   getAppInfo() {
     return Promise.all([this.getUserInfo(), this.getInitialCards()])
       .then(([userInfo, initialCards]) => {
@@ -106,7 +101,7 @@ class Api {
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
-    authorization: "d7846fb3-2c7e-4fc7-b6f5-eaa966da0ae1",
+    authorization: "0707b0a1-2f5a-47c0-9e96-fd250f6bb4a2",
     "Content-Type": "application/json",
   },
 });

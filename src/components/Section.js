@@ -1,13 +1,13 @@
-class Section {
+export default class Section {
   constructor({ items, renderer }, containerSelector) {
-    this._items = items;
+    this._items = items || []; // Ensure items is an array
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);
   }
 
   renderItems() {
     this._items.forEach((item) => {
-      this._renderer(item);
+      this._renderer(item); // Pass item to the renderer function
     });
   }
 
@@ -15,5 +15,3 @@ class Section {
     this._container.prepend(element);
   }
 }
-
-export default Section;

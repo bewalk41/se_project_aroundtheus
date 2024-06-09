@@ -1,71 +1,85 @@
 export default class Card {
   constructor(
-    { name, link },
+    { _id, name, link, likes = [], owner },
     cardSelector,
     handleImageClick,
-    handleDeleteClick
+    handleDeleteClick,
+    handleLikeClick
   ) {
+    this._id = _id;
     this._name = name;
     this._link = link;
+    this._likes = likes;
+    this._owner = owner;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
-    this._handleDeleteClick = handleDeleteClick; // Add handleDeleteClick callback
+    this._handleDeleteClick = handleDeleteClick;
+    this._handleLikeClick = handleLikeClick;
   }
 
-  _setEventListener() {
-    // Set event listener for the like button
-    this._cardElement
-      .querySelector(".card__like-button")
-      .addEventListener("click", () => {
-        this._handleLikeIcon();
-      });
+  _setEventListeners() {
+    const deleteButton = this._cardElement.querySelector(".card__trash-button");
+    deleteButton.addEventListener("click", () => {
+      if (typeof this._handleDeleteClick === "function") {
+        this._handleDeleteClick(this._id, this._cardElement);
+      }
+    });
 
-    // Set event listener for the delete button
-    this._cardElement
-      .querySelector(".card__trash-button")
-      .addEventListener("click", () => {
-        this._handleDeleteCard();
-      });
-
-    // Set event listener for the card image
-    const cardImageEl = this._cardElement.querySelector(".card__image");
-    cardImageEl.addEventListener("click", () => {
+    const cardImage = this._cardElement.querySelector(".card__image");
+    cardImage.addEventListener("click", () => {
       if (typeof this._handleImageClick === "function") {
         this._handleImageClick(this._link, this._name);
       }
     });
-  }
 
-  _handleLikeIcon() {
     const likeButton = this._cardElement.querySelector(".card__like-button");
-    likeButton.classList.toggle("card__like-button_active");
+    likeButton.addEventListener("click", () => {
+      if (typeof this._handleLikeClick === "function") {
+        Promise.resolve(
+          this._handleLikeClick(this._id, this.isLiked(), this)
+        ).catch((error) => {
+          console.error("Error occurred while handling like click:", error);
+        });
+      } else {
+        console.error("handleLikeClick function is not defined.");
+      }
+    });
   }
 
-  _handleDeleteCard() {
-    // Check if handleDeleteClick callback is defined
-    if (typeof this._handleDeleteClick === "function") {
-      this._handleDeleteClick(); // Call handleDeleteClick callback
+  isLiked() {
+    return this._isLiked;
+  }
+
+  setIsLiked(isLiked) {
+    this._isLiked = isLiked;
+    this._renderLikes();
+  }
+
+  _renderLikes() {
+    const likeButton = this._cardElement.querySelector(".card__like-button");
+    if (this._isLiked) {
+      likeButton.classList.add("card__like-button_filled");
+    } else {
+      likeButton.classList.remove("card__like-button_filled");
     }
   }
 
-  getView() {
-    // Clone the card template content
+  getView(userId) {
+    this._userId = userId;
+    this._isLiked = this._likes.some((like) => like._id === this._userId); // Initialize _isLiked
     this._cardElement = document
       .querySelector(this._cardSelector)
       .content.querySelector(".card")
       .cloneNode(true);
 
-    // Set the card title
     const cardTitle = this._cardElement.querySelector(".card__header");
-    cardTitle.textContent = this._name;
-
-    // Set the card image source and alt text
     const cardImage = this._cardElement.querySelector(".card__image");
+    cardTitle.textContent = this._name;
     cardImage.src = this._link;
     cardImage.alt = this._name;
 
-    // Set event listeners
-    this._setEventListener();
+    this._renderLikes(); // Render initial likes state
+    this._setEventListeners();
 
     return this._cardElement;
   }

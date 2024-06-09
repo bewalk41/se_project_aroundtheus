@@ -4,13 +4,41 @@
   padding-top: 40px;
 }
 
+.profile-image__edit-container {
+  position: relative;
+  display: inline-block; /* Ensure container fits the size of the image */
+  padding-right: 28.75px;
+}
+
 .profile__image {
   width: 120px;
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  background-position: center;
-  margin-right: 24px;
+  display: block; /* Ensure image is treated as a block element */
+  transition: opacity 0.3s ease; /* Smooth transition for opacity */
+}
+
+.profile__image-button {
+  background: transparent url("../images/Edit\ Image.svg") center no-repeat;
+  width: 24px;
+  height: 24px;
+  border: none;
+  position: absolute;
+  top: 50%; /* Center vertically */
+  left: 40%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Center the button exactly */
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease; /* Smooth transition for opacity */
+}
+
+.profile-image__edit-container:hover .profile__image {
+  opacity: 0.5; /* Darken the image on hover */
+}
+
+.profile-image__edit-container:hover .profile__image-button {
+  opacity: 1; /* Show the button on hover */
+  cursor: pointer;
 }
 
 .profile__info {

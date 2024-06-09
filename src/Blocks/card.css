@@ -54,7 +54,7 @@
   padding-right: 30px;
 }
 
-.card__like-button_active {
+.card__like-button_filled {
   background: transparent url("../images/like-active.svg") center no-repeat;
 }
 

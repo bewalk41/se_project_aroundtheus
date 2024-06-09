@@ -20,11 +20,14 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img
-            src="<%=require('./images/profile__image.svg')%>"
-            class="profile__image"
-            alt="Jacques Cousteau"
-          />
+          <div class="profile-image__edit-container">
+            <img
+              src="<%=require('./images/profile__image.svg')%>"
+              class="profile__image"
+              alt="Profile Image"
+            />
+            <button class="profile__image-button"></button>
+          </div>
           <div class="profile__info">
             <h1 class="profile__name">Jacques Cousteau</h1>
             <button
@@ -127,7 +130,6 @@
         </form>
       </div>
     </div>
-
     <!-- Add Image Modal -->
     <div class="modal" id="image-modal">
       <div class="modal__image-container">
@@ -140,7 +142,6 @@
         <div class="modal__caption" id="modal-caption"></div>
       </div>
     </div>
-
     <!-- Confirm Popup Modal -->
     <div class="modal" id="confirm-popup">
       <div class="modal__confirmcontainer">
@@ -149,7 +150,7 @@
           id="confirm-popup-close-button"
           type="button"
         ></button>
-        <h3 class="modal__heading">Are you sure?</h3>
+        <h3 class="modal__heading_confirm">Are you sure?</h3>
         <div class="modal__actions">
           <button class="modal__button modal__button_confirm" type="button">
             Yes
@@ -157,7 +158,32 @@
         </div>
       </div>
     </div>
-
+    <!-- Change Profile Picture Modal -->
+    <div class="modal" id="profile-popup">
+      <div class="modal__avatarcontainer">
+        <button
+          class="modal__close"
+          id="profile-popup-close-button"
+          type="button"
+        ></button>
+        <h3 class="modal__heading">Change Profile Picture</h3>
+        <form class="modal__form" id="profile-image-form" name="card-form">
+          <input
+            class="modal__input modal__input_type_url"
+            type="url"
+            id="profile-image-input"
+            name="description"
+            placeholder="Image URL"
+            required
+          />
+          <div class="modal__button-container">
+            <button class="modal__button modal__profilebutton" type="submit">
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
     <template id="card-template">
       <li class="card">
         <img class="card__image" src="" alt="" />

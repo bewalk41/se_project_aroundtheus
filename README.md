@@ -6,5 +6,4 @@ The site also should be responsive and change based on the viewers view dimensio
 
 Github Project: https://bewalk41.github.io/se_project_aroundtheus/index.html
 
-Project Overview Video:
-https://www.youtube.com/watch?v=HdpcVq3umvo
+Project Overview Video: https://www.youtube.com/watch?v=HdpcVq3umvo

@@ -12,13 +12,11 @@
   opacity: 0;
   transition: visibility 0.3s, opacity 0.3s linear;
 }
-
 .modal_opened {
   visibility: visible;
   opacity: 1;
   transition: visibility 0s, opacity 0.3s linear;
 }
-
 .modal__container {
   background-color: white;
   position: relative;
@@ -27,7 +25,6 @@
   width: 430px;
   height: 330px;
 }
-
 .modal__close {
   background: transparent url(../images/Close\ Icon.svg) center no-repeat;
   position: absolute;
@@ -39,7 +36,6 @@
   border: none;
   background-size: contain;
 }
-
 .modal__heading {
   font-family: "Inter", "Arial", sans-serif;
   color: #000;
@@ -51,7 +47,6 @@
   padding-top: 34px;
   padding-bottom: 54px;
 }
-
 .modal__form {
   display: flex;
   flex-direction: column;
@@ -63,7 +58,6 @@
   padding-right: 36px;
   border: none;
 }
-
 .modal__input {
   margin-bottom: 40px;
   border: 1px;
@@ -73,7 +67,6 @@
   line-height: 16.9px;
   position: relative;
 }
-
 .modal__button {
   background-color: #000;
   color: white;
@@ -88,21 +81,17 @@
   font-weight: 400;
   font-family: "Inter", "Arial", sans-serif;
 }
-
 .modal__button:hover {
   cursor: pointer;
   opacity: 0.8;
 }
-
 .modal__close:hover {
   opacity: 0.6;
 }
-
 .modal__image {
   width: 433px;
   height: 540px;
 }
-
 .modal__image-container {
   background-color: transparent;
   position: relative;
@@ -113,7 +102,6 @@
   height: auto;
   padding: 0;
 }
-
 .modal__caption {
   font-family: "Inter", "Arial", sans-serif;
   font-weight: 400;
@@ -121,7 +109,6 @@
   margin: 0;
   padding-top: 10px;
 }
-
 .modal__error {
   font-size: 12px;
   line-height: 15px;
@@ -131,23 +118,19 @@
   text-align: left;
   transition: opacity 0.3s;
 }
-
 .modal__button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
-
 .modal__input.modal__input_type_error {
   border-color: #ff0000;
 }
-
 #profile-title-input-error {
   position: absolute;
   transform: translate(-35px, calc(100% + 10px));
   width: 358px;
   height: 15px;
 }
-
 #profile-description-input-error {
   position: absolute;
   transform: translate(-35px, calc(100% + 70px));
@@ -166,47 +149,75 @@
   width: 358px;
   height: 15px;
 }
-
-.modal__confirmcontainer {
+.modal__confirmcontainer,
+.modal__avatarcontainer {
   background-color: white;
   position: relative;
   margin: auto;
   border-radius: 10px;
   width: 430px;
+}
+.modal__confirmcontainer {
   height: 181px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center; /* Ensure text is centered */
 }
 
+.modal__avatarcontainer {
+  height: 272px;
+}
+
+.modal__heading_confirm,
+.modal__heading {
+  font-family: "Inter", "Arial", sans-serif;
+  color: #000;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29.05px;
+  margin: 0;
+  padding-top: 34px;
+}
+.modal__heading_confirm {
+  padding-bottom: 20px; /* Adjust padding to fit the container */
+}
 .modal__actions {
   display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
 }
-
-.modal__button_confirm {
-  font-size: 18px;
-  text-align: center; /* Center text horizontally */
+.modal__button_confirm,
+.modal__profilebutton {
+  font-size: 20px;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  padding: 10px 20px; /* Add some padding for better button appearance */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #000000; /* Add a background color for visibility */
+  color: white;
 }
-
 @media screen and (max-width: 630px) {
   .modal__heading {
     font-size: 18px;
     line-height: 21.78px;
     padding: 25px 0 76px 22px;
   }
-
   .modal__form {
     padding-left: 22px;
     padding-right: 22px;
     width: 238px;
   }
-
   .modal__close {
     bottom: calc(100% + 13.62px);
     left: calc(100% - 140px);
     width: 238px;
     height: 22px;
   }
-
   .modal__button {
     font-size: 14px;
     font-weight: 400;
@@ -216,12 +227,10 @@
     padding-right: 100px;
     padding-top: 15px;
   }
-
   .modal__container {
     width: 282px;
     padding: 0;
   }
-
   .modal__input {
     width: 238px;
   }
@@ -232,17 +241,14 @@
     width: 240px;
     height: 299px;
   }
-
   .modal__button {
     padding-bottom: 25px;
   }
-
   #profile-title-input-error {
     position: absolute;
     left: 60px;
     width: 240px;
   }
-
   #profile-description-input-error {
     position: absolute;
     left: 60px;

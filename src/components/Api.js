@@ -16,53 +16,38 @@ class Api {
     throw err; // Rethrow the error to be caught by the caller
   }
 
-  // Loading user information from the server
   getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
-    })
+    return fetch(`${this._baseUrl}/users/me`, { headers: this._headers })
       .then(this._checkResponse)
       .catch(this._handleError);
   }
 
-  // Loading cards from the server
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers,
-    })
+    return fetch(`${this._baseUrl}/cards`, { headers: this._headers })
       .then(this._checkResponse)
       .catch(this._handleError);
   }
 
-  // Editing the profile
   setUserInfo(data) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
-      headers: {
-        ...this._headers,
-        "Content-Type": "application/json",
-      },
+      headers: { ...this._headers, "Content-Type": "application/json" },
       body: JSON.stringify(data),
     })
       .then(this._checkResponse)
       .catch(this._handleError);
   }
 
-  // Adding a new card
   addCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
-      headers: {
-        ...this._headers,
-        "Content-Type": "application/json",
-      },
+      headers: { ...this._headers, "Content-Type": "application/json" },
       body: JSON.stringify(data),
     })
       .then(this._checkResponse)
       .catch(this._handleError);
   }
 
-  // Deleting a card
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
@@ -72,7 +57,6 @@ class Api {
       .catch(this._handleError);
   }
 
-  // Adding and removing likes
   likeCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
@@ -82,21 +66,25 @@ class Api {
       .catch(this._handleError);
   }
 
-  // Updating profile picture
+  dislikeCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+    })
+      .then(this._checkResponse)
+      .catch(this._handleError);
+  }
+
   setUserAvatar(data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      headers: {
-        ...this._headers,
-        "Content-Type": "application/json",
-      },
+      headers: { ...this._headers, "Content-Type": "application/json" },
       body: JSON.stringify(data),
     })
       .then(this._checkResponse)
       .catch(this._handleError);
   }
 
-  // Fetch both user info and initial cards concurrently
   getAppInfo() {
     return Promise.all([this.getUserInfo(), this.getInitialCards()])
       .then(([userInfo, initialCards]) => {

@@ -5,18 +5,19 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
-import { validationOptions, initialCards } from "../utils/constants.js"; // Import initial cards
-import "../pages/index.css"; // Ensure the CSS path is correct
-import api from "../components/Api.js"; // Import the api instance
+import { validationOptions } from "../utils/constants.js";
+import "../pages/index.css";
+import api from "../components/Api.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const profileEditButton = document.querySelector("#profile-edit-button");
   const addCardButton = document.querySelector("#add-card-button");
   const profileImageButton = document.querySelector(".profile__image-button");
+
   const userInfo = new UserInfo({
     nameSelector: ".profile__name",
     jobSelector: ".profile__description",
-    avatarSelector: ".profile__image", // Add the avatar selector
+    avatarSelector: ".profile__image",
   });
 
   const editFormValidator = new FormValidator(
@@ -27,8 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
     validationOptions,
     document.querySelector("#add-card-modal .modal__form")
   );
+
   editFormValidator.enableValidation();
   addCardFormValidator.enableValidation();
+
   const handleImageClick = (link, name) => {
     imagePopup.open({ name, link });
   };
@@ -38,10 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     (formData) => {
       profileEditPopup.renderLoading(true);
       api
-        .setUserInfo({
-          name: formData.heading,
-          about: formData.description,
-        })
+        .setUserInfo({ name: formData.heading, about: formData.description })
         .then(() => {
           userInfo.setUserInfo({
             name: formData.heading,
@@ -74,7 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
   confirmPopup.setEventListeners();
 
   confirmPopup.setConfirmationHandler(({ cardId, cardElement }) => {
-    console.log(`Card ID to delete: ${cardId}`); // Add this line to debug
     confirmPopup.renderLoading(true);
     api
       .deleteCard(cardId)
@@ -117,25 +116,27 @@ document.addEventListener("DOMContentLoaded", () => {
           api
             .dislikeCard(cardId)
             .then((response) => {
-              card.setIsLiked(false); // Update card state to not liked
+              card.setIsLiked(false);
+              // Optionally update likes count if needed
             })
             .catch((err) => console.error(err));
         } else {
           api
             .likeCard(cardId)
             .then((response) => {
-              card.setIsLiked(true); // Update card state to liked
+              card.setIsLiked(true);
+              // Optionally update likes count if needed
             })
             .catch((err) => console.error(err));
         }
       }
     );
-    return card.getView();
+    return card.getView(userInfo.getUserInfo()._id);
   }
 
   const section = new Section(
     {
-      items: initialCards, // Use the initial cards array
+      items: [], // Initially empty, we'll fetch the cards from the server
       renderer: (cardData) => {
         const cardElement = getCardElement(cardData);
         section.addItem(cardElement);
@@ -163,17 +164,17 @@ document.addEventListener("DOMContentLoaded", () => {
     updateAvatarPopup.open();
   });
 
+  // Fetch and display user info and initial cards
   api
     .getUserInfo()
     .then((userData) => {
       userInfo.setUserInfo(userData);
+      return api.getInitialCards(); // Fetch initial cards from the server
     })
-    .catch((err) => console.error("Error fetching user info:", err));
-
-  api
-    .getInitialCards()
     .then((initialCards) => {
-      section.renderItems(initialCards);
+      section.renderItems(initialCards); // Render initial cards
     })
-    .catch((err) => console.error("Error fetching initial cards:", err));
+    .catch((err) =>
+      console.error("Error fetching user info or initial cards:", err)
+    );
 });

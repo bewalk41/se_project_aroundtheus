@@ -25,6 +25,10 @@ class Api {
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, { headers: this._headers })
       .then(this._checkResponse)
+      .then((data) => {
+        console.log("Fetched initial cards:", data);
+        return data;
+      })
       .catch(this._handleError);
   }
 

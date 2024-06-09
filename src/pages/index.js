@@ -134,16 +134,28 @@ document.addEventListener("DOMContentLoaded", () => {
     return card.getView(userInfo.getUserInfo()._id);
   }
 
-  const section = new Section(
-    {
-      items: [], // Initially empty, we'll fetch the cards from the server
-      renderer: (cardData) => {
-        const cardElement = getCardElement(cardData);
-        section.addItem(cardElement);
-      },
-    },
-    ".cards__list"
-  );
+  // Fetch and display user info and initial cards
+  api
+    .getAppInfo()
+    .then(({ userInfo: userData, initialCards }) => {
+      userInfo.setUserInfo(userData);
+
+      const section = new Section(
+        {
+          items: initialCards, // Pass initial cards to Section
+          renderer: (cardData) => {
+            const cardElement = getCardElement(cardData);
+            section.addItem(cardElement);
+          },
+        },
+        ".cards__list"
+      );
+
+      section.renderItems(); // Render the initial cards
+    })
+    .catch((err) =>
+      console.error("Error fetching user info or initial cards:", err)
+    );
 
   profileEditButton.addEventListener("click", () => {
     const userData = userInfo.getUserInfo();
@@ -163,18 +175,4 @@ document.addEventListener("DOMContentLoaded", () => {
   profileImageButton.addEventListener("click", () => {
     updateAvatarPopup.open();
   });
-
-  // Fetch and display user info and initial cards
-  api
-    .getUserInfo()
-    .then((userData) => {
-      userInfo.setUserInfo(userData);
-      return api.getInitialCards(); // Fetch initial cards from the server
-    })
-    .then((initialCards) => {
-      section.renderItems(initialCards); // Render initial cards
-    })
-    .catch((err) =>
-      console.error("Error fetching user info or initial cards:", err)
-    );
 });
